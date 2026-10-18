@@ -170,13 +170,13 @@ Item {
             }
             if (dayNode.nodeName === "tracks") {
                 for (var j = 0; j < dayNode.childNodes.length; ++j) {
-                    let trackNode = dayNode.childNodes[j]
+                    var trackNode = dayNode.childNodes[j]
                     if (trackNode.nodeName !== "track")
                         continue
 
-                    let name = ""
-                    let slug = ""
-                    let color = ""
+                    var name = ""
+                    var slug = ""
+                    var color = ""
 
                     name = trackNode.firstChild.nodeValue
 
@@ -411,7 +411,10 @@ Item {
                     console.log("conf_data['url'] " + conf_data['url'])
                     // if (conferenceDetailPage.url === conf_data['url'] ) { // update UI only when showing same page
                     var obj = JSON.parse(xmlToJSON(http.responseXML))
-                    data = Object.assign({}, obj, conf_data)
+                    for (var key in conf_data) {
+                        obj[key] = conf_data[key]
+                    }
+                    data = obj
                     status = "idle"
                     updateUIConference(data);
                     // }

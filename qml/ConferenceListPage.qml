@@ -48,7 +48,7 @@ Page {
 
             }
             onClicked: {
-                let selectedObj = {
+                var selectedObj = {
                     "url": model.url,
                     "icon": model.icon,
                     "title": model.title,
@@ -103,7 +103,7 @@ Page {
                     continue
                 }
 
-                let selectObj = {
+                var selectObj = {
                     "url": conf.url,
                     "icon": (conf.metadata !== undefined && conf.metadata.icon !== undefined) ? conf.metadata.icon: "",
                     "title": conf.title,
@@ -115,7 +115,7 @@ Page {
             }
             if (confs.length === 1) {
                 conf = confs[0];
-                let selectObj = {
+                var selectObj = {
                     "url": conf.url,
                     "icon": (conf.metadata !== undefined && conf.metadata.icon !== undefined) ? conf.metadata.icon: "",
                     "title": conf.title,
