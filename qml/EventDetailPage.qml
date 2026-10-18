@@ -179,7 +179,7 @@ PagePL {
                 anchors.fill: tagsLabelBackground
                 anchors.margins: styler.themePaddingSmall
                 font.pixelSize: styler.themeFontSizeSmall
-                color: "#ffffff";//styler.themeHighlightColor
+                color: F.textColorOn(tagsLabelBackground.color)
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText;
             }

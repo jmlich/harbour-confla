@@ -11,6 +11,8 @@ ListItemPL {
     property int endTime;
     property alias roomShort: roomLabel.text;
     property color roomColor
+    readonly property color background: highlighted ? Qt.darker(roomColor) : roomColor
+    readonly property color textColor: F.textColorOn(background)
     property string speakers_str;
     property string title;
     property int currentTimestamp;
@@ -18,14 +20,14 @@ ListItemPL {
 
     Rectangle {
         anchors.fill: parent
-        color: scheduleDelegate.highlighted ? Qt.darker(scheduleDelegate.roomColor) : scheduleDelegate.roomColor
+        color: scheduleDelegate.background
     }
 
     Text {
         id: startTimeLabel
         text: F.format_time(startTime);
         font.pixelSize: styler.themeFontSizeExtraSmall;
-        color: scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
+        color: scheduleDelegate.textColor
         anchors.left: parent.left;
         anchors.top: parent.top;
         anchors.margins: styler.themePaddingMedium
@@ -35,7 +37,7 @@ ListItemPL {
         id: endTimeLabel
         text: F.format_time(endTime);
         font.pixelSize: styler.themeFontSizeExtraSmall;
-        color: scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
+        color: scheduleDelegate.textColor
         anchors.left: parent.left;
         anchors.top: startTimeLabel.bottom
         anchors.margins: styler.themePaddingMedium
@@ -47,7 +49,7 @@ ListItemPL {
         id: roomLabel;
         font.pixelSize: styler.themeFontSizeExtraSmall;
 
-        color: scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
+        color: scheduleDelegate.textColor
         anchors.left: parent.left;
         anchors.top: endTimeLabel.bottom;
         anchors.margins: styler.themePaddingMedium
@@ -64,9 +66,8 @@ ListItemPL {
         font.pixelSize: styler.themeFontSizeSmall
 
         text: (speakers_str !== "") ? (speakers_str + ": " + title) : title
-        color: (currentTimestamp > endTime)
-               ? (scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor)
-                 : (scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor)
+        color: scheduleDelegate.textColor
+        opacity: (currentTimestamp > endTime) ? 0.6 : 1
         wrapMode: Text.Wrap;
         textFormat: Text.RichText;
     }

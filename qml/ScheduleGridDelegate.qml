@@ -11,7 +11,8 @@ Rectangle {
     property int startTime;
     property int endTime;
 //    property alias roomShort: roomLabel.text;
-    property alias roomColor: roomColorLabel.color;
+    property color roomColor
+    readonly property color textColor: F.textColorOn(color)
     property string speakers_str;
     property string title;
     property int currentTimestamp;
@@ -19,7 +20,7 @@ Rectangle {
 
     clip: true;
     border.color: styler.themeSecondaryColor;
-    color: roomColor
+    color: highlighted ? Qt.darker(roomColor) : roomColor
 //    border.color: inFavorites ? Qt.lighter(styler.themeHighlightColor) : Theme.background_color_pressed;
 
 
@@ -29,7 +30,7 @@ Rectangle {
         anchors.top: parent.top;
         anchors.margins: styler.themePaddingMedium
         font.pixelSize: styler.themeFontSizeExtraSmall;
-        color: styler.themePrimaryColor
+        color: scheduleGridDelegate.textColor
         //               font.family: Theme.fontFamilyHeading
         font.weight: Font.Bold
         text: "|"
@@ -44,9 +45,8 @@ Rectangle {
         font.pixelSize: styler.themeFontSizeExtraSmall;
 
         text: (speakers_str !== "") ? (speakers_str + ": " + title) : title
-        color: (currentTimestamp > endTime)
-               ? (scheduleGridDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor)
-               : (scheduleGridDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor)
+        color: scheduleGridDelegate.textColor
+        opacity: (currentTimestamp > endTime) ? 0.6 : 1
         wrapMode: Text.Wrap;
         textFormat: Text.RichText;
 

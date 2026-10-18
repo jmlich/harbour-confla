@@ -1,5 +1,11 @@
 .pragma library
 
+// black or white text, whichever reads better on the background color
+function textColorOn(background) {
+    var luma = 0.299 * background.r + 0.587 * background.g + 0.114 * background.b
+    return (luma > 0.5) ? "#000000" : "#ffffff"
+}
+
 function isSameDay(time) { // predpokladany @parametr time je timestamp odpovidajici dnu zacatku v 00:00:00
     var t2 = new Date().getTime()/1000;
 
