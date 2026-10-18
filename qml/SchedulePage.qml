@@ -53,6 +53,7 @@ PageEmptyPL {
     Flickable {
         visible: !listView.visible;
         anchors.fill: parent;
+        clip: true;
         contentWidth: slot_width * rooms_count + header_width;
         contentHeight: slot_height * (slot_count + 1);
 
@@ -149,6 +150,7 @@ PageEmptyPL {
     ListView {
         visible: false;
         id: listView
+        clip: true;
         model: filteredEventModel
         anchors.fill: parent
         spacing: styler.themePaddingSmall
