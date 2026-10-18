@@ -2,6 +2,7 @@
 
 declare -a platforms=("kirigami" "uuitk" "silica" "qtcontrols")
 
+export LC_ALL=C
 IFS=$'\n'
 
 for platform in ${platforms[@]}; do
