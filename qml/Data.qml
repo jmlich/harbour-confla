@@ -429,6 +429,11 @@ Item {
                         configSet(conf_data['url']+"/version", data.version)
                     }
 
+                    var speakers_url = pretalxSpeakersUrl(conf_data['url'])
+                    if (speakers_url !== "") {
+                        download_pretalx_speakers(speakers_url, conf_data['url'])
+                    }
+
                 } else { // offline or error while downloading
                     console.log("error downloading ")
                     status = "offline"
@@ -442,6 +447,69 @@ Item {
         //        http.send(params)
         http.send()
 
+    }
+
+    // pretalx exports the schedule as frab XML without avatars and with short bios. The public API has them:
+    // https://talks.openalt.cz/openalt-2026/schedule/export/schedule.xml
+    // -> https://talks.openalt.cz/api/events/openalt-2026/speakers/
+    function pretalxSpeakersUrl(url) {
+        var m = url.match(/^(https?:\/\/[^\/]+)\/([^\/]+)\/schedule\/export\/schedule\.xml$/)
+        if (m === null) {
+            return ""
+        }
+        return m[1] + "/api/events/" + m[2] + "/speakers/"
+    }
+
+    function download_pretalx_speakers(api_url, conf_url) {
+        console.log("Downloading " + api_url + " ...")
+        var http = new XMLHttpRequest()
+        http.open("GET", api_url, true)
+        http.onreadystatechange = function() {
+            if (http.readyState != 4) {
+                return
+            }
+            if (http.status != 200) {
+                console.log("Cannot download " + api_url + ": " + http.status)
+                return
+            }
+
+            var speakers
+            try {
+                speakers = JSON.parse(http.responseText)
+            } catch (e) {
+                console.log("Invalid speakers from " + api_url + ": " + e)
+                return
+            }
+
+            var d = data
+            if (d.url !== conf_url || !Array.isArray(d.users) || !Array.isArray(speakers.results)) {
+                return
+            }
+
+            // the XML has numeric person ids, the API has codes, so match by name
+            for (var i = 0; i < speakers.results.length; i++) {
+                var speaker = speakers.results[i]
+                for (var j = 0; j < d.users.length; j++) {
+                    var user = d.users[j]
+                    if (user.name !== speaker.name) {
+                        continue
+                    }
+                    if (speaker.avatar_url) {
+                        user.avatar = speaker.avatar_url
+                    }
+                    if (speaker.biography) {
+                        user.bio = speaker.biography
+                    }
+                }
+            }
+            data = d
+            configSet(conf_url + "/cache", JSON.stringify(data))
+
+            if (speakers.next) {
+                download_pretalx_speakers(speakers.next, conf_url)
+            }
+        }
+        http.send()
     }
 
     function getFavorites(url) {
