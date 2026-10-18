@@ -85,7 +85,15 @@ add_executable(harbour-confla
 )
 find_package(Qt5 COMPONENTS Gui Widgets Quick Positioning REQUIRED)
 
-QT5_ADD_TRANSLATION(QM_FILES ${TS_FILES} OPTIONS -idbased)
+set(QM_FILES)
+foreach(TS_FILE ${TS_FILES})
+    get_filename_component(QM_NAME ${TS_FILE} NAME_WE)
+    set(QM_FILE "${CMAKE_CURRENT_BINARY_DIR}/${QM_NAME}.qm")
+    add_custom_command(OUTPUT ${QM_FILE}
+        COMMAND Qt5::lrelease -idbased ${TS_FILE} -qm ${QM_FILE}
+        DEPENDS ${TS_FILE})
+    list(APPEND QM_FILES ${QM_FILE})
+endforeach()
 add_custom_target(ui_translations DEPENDS ${QM_FILES})
 add_dependencies(harbour-confla ui_translations)
 

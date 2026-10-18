@@ -11,7 +11,7 @@
 Name:       harbour-confla
 
 Summary:    Conference schedule application
-Version:    0.1.0
+Version:    0.1.1
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3
