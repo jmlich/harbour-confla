@@ -115,7 +115,7 @@ Item {
 
         var cache_version = configGet(conf_data['url']+"/version", 'INVALID_version');
 
-        if (cached.sessions === undefined || parseInt(conf_data['version'], 10) !== parseInt(cache_version, 10)) {
+        if (cached.sessions === undefined || cached.room_order === undefined || parseInt(conf_data['version'], 10) !== parseInt(cache_version, 10)) {
             console.error("init_conference " + conf_data['version'] + " -> " + cache_version)
 
             download_conference(conf_data);
@@ -135,6 +135,7 @@ Item {
         var days = []
         var users = []
         var tracks = []
+        var room_order = [] // rooms as the conference orders them in the XML
 
 
         for (var i = 0; i < doc.childNodes.length; ++i) {
@@ -253,6 +254,10 @@ Item {
                                 break
                             }
                         }
+                    }
+
+                    if (room_order.indexOf(roomName) === -1) {
+                        room_order.push(roomName)
                     }
 
                     for (var k = 0; k < roomNode.childNodes.length; ++k) {
@@ -387,6 +392,7 @@ Item {
             "sessions": sessions,
             "users": users,
             "tracks": tracks,
+            "room_order": room_order,
             // "venueMap": [],
         }
 

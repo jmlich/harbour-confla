@@ -31,6 +31,7 @@ PageEmptyPL {
     property int slot_count: Math.ceil((slot_last - slot_first)/slot_length);
 
     property int rooms_count: 1;
+    property var room_order: [];
 
     function roomToIndex(room_name) {
         for (var i = 0; i < roomsModel.count; i++) {
@@ -285,7 +286,21 @@ PageEmptyPL {
             }
 
             rooms_count = rooms.length;
-            rooms.sort();
+            // keep the order of the schedule, rooms it does not know go last in alphabetical order
+            rooms.sort(function(a, b) {
+                var ia = room_order.indexOf(a);
+                var ib = room_order.indexOf(b);
+                if (ia === -1 && ib === -1) {
+                    return (a < b) ? -1 : (a > b) ? 1 : 0;
+                }
+                if (ia === -1) {
+                    return 1;
+                }
+                if (ib === -1) {
+                    return -1;
+                }
+                return ia - ib;
+            });
 
             roomsModel.clear();
             for (var i = 0; i < rooms.length; i++) {
@@ -305,6 +320,7 @@ PageEmptyPL {
 
 
     function reload(d) {
+        room_order = (d.room_order !== undefined) ? d.room_order : [];
 
         eventModel.clear();
         if (d.sessions !== undefined) {
