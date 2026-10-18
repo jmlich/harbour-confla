@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import "Theme.js" as Theme
 
 Page {
     //% "Place"
@@ -15,7 +14,7 @@ Page {
 
     Flickable {
         anchors.fill: parent;
-        contentHeight: title_label.height + description_label.height + Theme.paddingSmall + 2 * Theme.paddingMedium;
+        contentHeight: title_label.height + description_label.height + styler.themePaddingSmall + 2 * styler.themePaddingMedium;
         //        PullDownMenu {
         //            MenuItem {
         //                //% "Show on map"
@@ -38,7 +37,7 @@ Page {
             anchors.left: parent.left;
             anchors.verticalCenter: title_label.verticalCenter;
 
-            anchors.margins: Theme.paddingSmall;
+            anchors.margins: styler.themePaddingSmall;
             smooth: true
             width: 0.5 * dpix;
             height: 0.5 * dpiy;
@@ -48,7 +47,7 @@ Page {
         Image {
             anchors.top: parent.top;
             anchors.left: parent.left;
-            anchors.margins: Theme.paddingMedium
+            anchors.margins: styler.themePaddingMedium
             anchors.centerIn: placesDelegate;
             source: "./images/marker-icon.png"
             visible:( placesDelegate.status !== Image.Ready)
@@ -60,30 +59,30 @@ Page {
 
         Text {
             id: title_label
-            anchors.margins: Theme.paddingSmall;
+            anchors.margins: styler.themePaddingSmall;
             anchors.top: parent.top;
             anchors.left: placesDelegate.right;
             anchors.right: parent.right
             wrapMode: Text.Wrap;
-            color: Theme.primary_color
+            color: styler.themePrimaryColor
             verticalAlignment: Text.AlignVCenter;
-            font.pointSize: Theme.primary_pointSize;
+            font.pixelSize: styler.themeFontSizeMedium;
 
 
         }
 
         Text {
             id: description_label;
-            anchors.margins: Theme.paddingMedium;
+            anchors.margins: styler.themePaddingMedium;
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: title_label.bottom
-            color: Theme.secondary_color
+            color: styler.themeSecondaryColor
             wrapMode: Text.Wrap;
-            font.pointSize: Theme.primary_pointSize;
+            font.pixelSize: styler.themeFontSizeMedium;
 
             textFormat: Text.RichText;
-            text: "<style type='text/css'>a:link{color:"+Theme.section_header_color+"; } a:visited{color:"+Theme.section_header_color+"}</style>  "+  description
+            text: "<style type='text/css'>a:link{color:"+styler.themeHighlightColor+"; } a:visited{color:"+styler.themeHighlightColor+"}</style>  "+  description
             onLinkActivated: {
                 Qt.openUrlExternally(link);
             }
@@ -92,7 +91,7 @@ Page {
 
         LineButton {
             id: showOnMapButton
-            anchors.topMargin: Theme.paddingLarge
+            anchors.topMargin: styler.themePaddingLarge
             anchors.top: description_label.bottom
             anchors.left: parent.left
             anchors.right: parent.right
@@ -108,7 +107,7 @@ Page {
 
         LineButton {
             id: navigateToButton
-            anchors.topMargin: Theme.paddingLarge
+            anchors.topMargin: styler.themePaddingLarge
             anchors.top: showOnMapButton.bottom
             anchors.left: parent.left
             anchors.right: parent.right

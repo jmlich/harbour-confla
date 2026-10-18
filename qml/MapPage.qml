@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtPositioning 5.0
-import "Theme.js" as Theme
 
 Page {
     id: page;
@@ -30,12 +29,12 @@ Page {
                 delegate: BackgroundItem {
                     id: delegate;
                     width: page.width
-                    height: Math.max(placesDelegate.height, placesDelegateTitle.paintedHeight)  + Theme.paddingSmall
+                    height: Math.max(placesDelegate.height, placesDelegateTitle.paintedHeight)  + styler.themePaddingSmall
                     Image {
                         id: placesDelegate
                         anchors.left: parent.left;
                         anchors.verticalCenter: parent.verticalCenter;
-                        anchors.margins: Theme.paddingSmall;
+                        anchors.margins: styler.themePaddingSmall;
                         source: model.icon;
                         smooth: true
                         fillMode: Image.PreserveAspectFit
@@ -61,8 +60,8 @@ Page {
                         anchors.top: parent.top;
                         anchors.bottom: parent.bottom;
                         verticalAlignment: Text.AlignVCenter;
-                        color: delegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color
-                        font.pointSize: Theme.primary_pointSize
+                        color: delegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                        font.pixelSize: styler.themeFontSizeMedium
 
                         wrapMode: Text.Wrap;
                         text: model.name;

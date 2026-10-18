@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import "functions.js" as F
-import "Theme.js" as Theme
 
 
 BackgroundItem {
@@ -16,18 +15,18 @@ BackgroundItem {
     property bool inFavorites: false;
 
     clip: true;
-    border.color: Theme.background_color_pressed;
+    border.color: styler.themeSecondaryColor;
     color: roomColor
-//    border.color: inFavorites ? Qt.lighter(Theme.header_color) : Theme.background_color_pressed;
+//    border.color: inFavorites ? Qt.lighter(styler.themeHighlightColor) : Theme.background_color_pressed;
 
 
     Text {
         id: roomColorLabel
         anchors.left: parent.left;
         anchors.top: parent.top;
-        anchors.margins: Theme.paddingMedium
-        font.pointSize: Theme.tertiary_pointSize;
-        color: Theme.primary_color
+        anchors.margins: styler.themePaddingMedium
+        font.pixelSize: styler.themeFontSizeExtraSmall;
+        color: styler.themePrimaryColor
         //               font.family: Theme.fontFamilyHeading
         font.weight: Font.Bold
         text: "|"
@@ -38,13 +37,13 @@ BackgroundItem {
         anchors.top: parent.top;
         anchors.right: parent.right;
         anchors.bottom: parent.bottom;
-        anchors.margins: Theme.paddingMedium
-        font.pointSize: Theme.tertiary_pointSize;
+        anchors.margins: styler.themePaddingMedium
+        font.pixelSize: styler.themeFontSizeExtraSmall;
 
         text: (speakers_str !== "") ? (speakers_str + ": " + title) : title
         color: (currentTimestamp > endTime)
-               ? (scheduleGridDelegate.highlighted ? Theme.secondary_color_highlight : Theme.secondary_color)
-               : (scheduleGridDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color)
+               ? (scheduleGridDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor)
+               : (scheduleGridDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor)
         wrapMode: Text.Wrap;
         textFormat: Text.RichText;
 
@@ -57,7 +56,7 @@ BackgroundItem {
         anchors.bottom: parent.bottom;
         fillMode: Image.PreserveAspectFit;
         height: 24;
-        anchors.margins: Theme.paddingMedium;
+        anchors.margins: styler.themePaddingMedium;
         opacity: 0.5;
     }
 

@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import "functions.js" as F
-import "Theme.js" as Theme
 
 Page {
     id: page
@@ -21,7 +20,7 @@ Page {
             id: column
 
             width: page.width
-            spacing: Theme.paddingSmall
+            spacing: styler.themePaddingSmall
 
             SectionHeader {
                 //% "About"
@@ -35,17 +34,17 @@ Page {
                 delegate: BackgroundItem {
                     id: aboutDelegate
                     width: column.width;
-                    height: aboutDelegateText.paintedHeight + Theme.paddingLarge;
+                    height: aboutDelegateText.paintedHeight + styler.themePaddingLarge;
                     Text {
                         id: aboutDelegateText
-                        x: Theme.paddingLarge
+                        x: styler.themePaddingLarge
                         text: model.title
                         anchors.verticalCenter: parent.verticalCenter
 
-                        color: aboutDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color;
+                        color: aboutDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
 
                         wrapMode: Text.Wrap;
-                        font.pointSize: Theme.primary_pointSize
+                        font.pixelSize: styler.themeFontSizeMedium
 
                     }
                     onClicked: {
@@ -62,16 +61,16 @@ Page {
                 delegate: BackgroundItem {
                     id: venueMapDelegate
                     width: column.width;
-                    height: venueMapDelegateText.paintedHeight + Theme.paddingLarge;
+                    height: venueMapDelegateText.paintedHeight + styler.themePaddingLarge;
                     Text {
                         id: venueMapDelegateText
-                        x: Theme.paddingLarge
+                        x: styler.themePaddingLarge
                         text: model.title
                         anchors.verticalCenter: parent.verticalCenter
 
-                        color: venueMapDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color;
+                        color: venueMapDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
                         wrapMode: Text.Wrap;
-                        font.pointSize: Theme.primary_pointSize
+                        font.pixelSize: styler.themeFontSizeMedium
 
                     }
                     onClicked: {
@@ -89,20 +88,20 @@ Page {
             BackgroundItem {
                 id: mapDelegate
                 width: column.width
-                height: mapDelegateText.paintedHeight + Theme.paddingLarge;
+                height: mapDelegateText.paintedHeight + styler.themePaddingLarge;
                 visible: (mapPage.mapWidget.places.count > 0)
 
                 Text {
                     id: mapDelegateText;
-                    x: Theme.paddingLarge
+                    x: styler.themePaddingLarge
                     //% "Important Places"
                     text: qsTrId("section-about-places")
                     anchors.verticalCenter: parent.verticalCenter
 
-                    color: mapDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color
+                    color: mapDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                     wrapMode: Text.Wrap;
                     //                    font.family: Theme.fontFamily
-                    font.pointSize: Theme.primary_pointSize;
+                    font.pixelSize: styler.themeFontSizeMedium;
 
                 }
                 onClicked: {
@@ -122,16 +121,16 @@ Page {
                 model: daysModel
                 delegate: BackgroundItem {
                     id: daysDelegate
-                    height: daysDelegateText.paintedHeight + Theme.paddingLarge;
+                    height: daysDelegateText.paintedHeight + styler.themePaddingLarge;
                     Text {
                         id: daysDelegateText
-                        x: Theme.paddingLarge
+                        x: styler.themePaddingLarge
                         text: name
                         anchors.verticalCenter: parent.verticalCenter
 
-                        color: daysDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color;
+                        color: daysDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
                         wrapMode: Text.Wrap;
-                        font.pointSize: Theme.primary_pointSize
+                        font.pixelSize: styler.themeFontSizeMedium
 
                     }
                     onClicked: {
@@ -149,17 +148,17 @@ Page {
             BackgroundItem {
                 id: favoritesDelegate
                 width: column.width
-                height: favoritesDelegateText.paintedHeight + Theme.paddingLarge;
+                height: favoritesDelegateText.paintedHeight + styler.themePaddingLarge;
                 visible: (schedulePage.favoritesModel.length > 0)
                 Text {
                     id: favoritesDelegateText
-                    x: Theme.paddingLarge
+                    x: styler.themePaddingLarge
                     //% "Favorites"
                     text: qsTrId("section-favorites")
                     anchors.verticalCenter: parent.verticalCenter
-                    color: favoritesDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color;
+                    color: favoritesDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
                     wrapMode: Text.Wrap;
-                    font.pointSize: Theme.primary_pointSize
+                    font.pixelSize: styler.themeFontSizeMedium
 
 
                 }

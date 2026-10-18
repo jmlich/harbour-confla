@@ -6,7 +6,6 @@
         <file>qml/ConferenceDetailPage.qml</file>
         <file>qml/ConferenceListPage.qml</file>
         <file>qml/Data.qml</file>
-        <file>qml/DialogButton.qml</file>
         <file>qml/EventDetailPage.qml</file>
         <file>qml/functions.js</file>
         <file>qml/images/blank_boy.png</file>
@@ -29,7 +28,6 @@
         <file>qml/LineButton.qml</file>
         <file>qml/main.qml</file>
         <file>qml/MapPage.qml</file>
-        <file>qml/PageHeader.qml</file>
         <file>qml/Page.qml</file>
         <file>qml/PhotoDetailPage.qml</file>
         <file>qml/PinchMap.qml</file>
@@ -39,6 +37,5 @@
         <file>qml/ScheduleGridDelegate.qml</file>
         <file>qml/SchedulePage.qml</file>
         <file>qml/SectionHeader.qml</file>
-        <file>qml/Theme.js</file>
     </qresource>
 </RCC>

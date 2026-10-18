@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import "functions.js" as F
-import "Theme.js" as Theme
 
 Page {
     id: page
@@ -40,7 +39,7 @@ Page {
             id: column
 
             width: page.width
-            spacing: Theme.paddingMedium
+            spacing: styler.themePaddingMedium
 
 
             //            PageHeader {
@@ -52,10 +51,10 @@ Page {
                 id: talkNameLabel
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.margins: Theme.paddingMedium;
+                anchors.margins: styler.themePaddingMedium;
                 //                font.family: Theme.fontFamilyHeading
-                font.pointSize: Theme.header_pointSize
-                color: Theme.primary_color
+                font.pixelSize: styler.themeFontSizeLarge
+                color: styler.themePrimaryColor
                 wrapMode: Text.WordWrap
 
             }
@@ -64,9 +63,9 @@ Page {
                 id: timeLabel
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.margins: Theme.paddingMedium;
-                color: Theme.secondary_color
-                font.pointSize: Theme.secondary_pointSize
+                anchors.margins: styler.themePaddingMedium;
+                color: styler.themeSecondaryColor
+                font.pixelSize: styler.themeFontSizeSmall
                 text: startTime + " - " + endTime
 
             }
@@ -75,9 +74,9 @@ Page {
                 id: roomLabel
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.margins: Theme.paddingMedium;
-                color: Theme.secondary_color
-                font.pointSize: Theme.secondary_pointSize
+                anchors.margins: styler.themePaddingMedium;
+                color: styler.themeSecondaryColor
+                font.pixelSize: styler.themeFontSizeSmall
             }
 
 
@@ -89,7 +88,7 @@ Page {
                     id: usersDelegate
                     highlight_enabled: false;
 
-                    height: Math.max(avatarImage.height, nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight + 2*Theme.paddingMedium) + 2 * Theme.paddingMedium
+                    height: Math.max(avatarImage.height, nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight + 2*styler.themePaddingMedium) + 2 * styler.themePaddingMedium
 
                     Image {
                         id: dummyImage;
@@ -109,7 +108,7 @@ Page {
                         source: model.avatar;
                         width: 1.5 * dpix;
                         height: 1.5 * dpiy;
-                        anchors.margins: Theme.paddingMedium;
+                        anchors.margins: styler.themePaddingMedium;
 
                     }
 
@@ -118,11 +117,11 @@ Page {
                         anchors.top: parent.top;
                         anchors.left: avatarImage.right
                         anchors.right: parent.right
-                        anchors.margins: Theme.paddingMedium;
+                        anchors.margins: styler.themePaddingMedium;
 
                         text: model.name
-                        color: Theme.primary_color
-                        font.pointSize: Theme.primary_pointSize
+                        color: styler.themePrimaryColor
+                        font.pixelSize: styler.themeFontSizeMedium
                         wrapMode: Text.WordWrap
 
                     }
@@ -132,22 +131,22 @@ Page {
                         anchors.left: avatarImage.right
                         anchors.top: nameLabel.bottom
                         anchors.right: parent.right
-                        anchors.margins: Theme.paddingMedium;
+                        anchors.margins: styler.themePaddingMedium;
                         text: model.company
-                        color: Theme.secondary_color
-                        font.pointSize: Theme.secondary_pointSize
+                        color: styler.themeSecondaryColor
+                        font.pixelSize: styler.themeFontSizeSmall
                         wrapMode: Text.WordWrap
 
                     }
                     Text {
                         id: positionLabel
                         anchors.right: parent.right
-                        anchors.margins: Theme.paddingMedium;
+                        anchors.margins: styler.themePaddingMedium;
                         anchors.top: companyLabel.bottom
                         anchors.left: avatarImage.right
                         text: model.position
-                        color: Theme.secondary_color
-                        font.pointSize: Theme.secondary_pointSize
+                        color: styler.themeSecondaryColor
+                        font.pixelSize: styler.themeFontSizeSmall
                         wrapMode: Text.WordWrap
 
                     }
@@ -158,16 +157,16 @@ Page {
                 id: tagsLabelBackground
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.margins: Theme.paddingMedium;
+                anchors.margins: styler.themePaddingMedium;
                 height: tagsLabel.paintedHeight + tagsLabel.anchors.topMargin + tagsLabel.anchors.bottomMargin
-                color: Theme.section_header_color
+                color: styler.themeHighlightColor
                 z: tagsLabel.z -1;
                 Text {
                     id: tagsLabel;
                     anchors.fill: tagsLabelBackground
-                    anchors.margins: Theme.paddingSmall
-                    font.pointSize: Theme.secondary_pointSize
-                    color: "#ffffff";//Theme.section_header_color
+                    anchors.margins: styler.themePaddingSmall
+                    font.pixelSize: styler.themeFontSizeSmall
+                    color: "#ffffff";//styler.themeHighlightColor
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText;
                 }
@@ -177,9 +176,9 @@ Page {
                 id: descriptionLabel
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.margins: Theme.paddingMedium;
-                font.pointSize: Theme.secondary_pointSize
-                color: Theme.secondary_color
+                anchors.margins: styler.themePaddingMedium;
+                font.pixelSize: styler.themeFontSizeSmall
+                color: styler.themeSecondaryColor
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText;
 

@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import "Theme.js" as Theme
 import "functions.js" as F
 
 
@@ -64,7 +63,7 @@ Page {
             model: roomsModel;
             delegate: BackgroundItem {
                 highlight_enabled: false;
-                border.color: Theme.background_color_pressed;
+                border.color: styler.themeSecondaryColor;
                 x: header_width + (index * slot_width);
                 y: 0;
                 height: slot_height;
@@ -73,8 +72,8 @@ Page {
                 Text {
                     anchors.centerIn: parent;
                     text: model.name;
-                    font.pointSize: Theme.tertiary_pointSize;
-                    color: highlighted ? Theme.secondary_color_highlight : Theme.secondary_color
+                    font.pixelSize: styler.themeFontSizeExtraSmall;
+                    color: highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
                 }
             }
         }
@@ -84,7 +83,7 @@ Page {
             model: timeModel;
             delegate: BackgroundItem {
                 highlight_enabled: false;
-                border.color: Theme.background_color_pressed;
+                border.color: styler.themeSecondaryColor;
                 x: 0;
                 y: header_width + (index * slot_height);
                 width: header_width;
@@ -92,8 +91,8 @@ Page {
                 Text {
                     anchors.centerIn: parent;
                     text: F.format_time(model.event_start);
-                    font.pointSize: Theme.tertiary_pointSize;
-                    color: highlighted ? Theme.secondary_color_highlight : Theme.secondary_color
+                    font.pixelSize: styler.themeFontSizeExtraSmall;
+                    color: highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
                 }
             }
         }
@@ -151,7 +150,7 @@ Page {
         id: listView
         model: filteredEventModel
         anchors.fill: parent
-        spacing: Theme.paddingSmall
+        spacing: styler.themePaddingSmall
 
         Component.onCompleted: {
             maximumFlickVelocity *= 2

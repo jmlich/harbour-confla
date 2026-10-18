@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import "Theme.js" as Theme
 
 
 Page {
@@ -15,17 +14,17 @@ Page {
             id: column
 
             width: page.width
-            spacing: Theme.paddingLarge
+            spacing: styler.themePaddingLarge
             Text {
                 id: contentLabel
                 wrapMode: Text.Wrap;
-                font.pointSize: Theme.secondary_pointSize;
+                font.pixelSize: styler.themeFontSizeSmall;
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.margins: Theme.paddingLarge;
+                anchors.margins: styler.themePaddingLarge;
                 textFormat: Text.RichText
-                color: Theme.primary_color
-                text: "<style type='text/css'>a:link{color:"+Theme.section_header_color+"; } a:visited{color:"+Theme.section_header_color+"}</style>  "+ page.text
+                color: styler.themePrimaryColor
+                text: "<style type='text/css'>a:link{color:"+styler.themeHighlightColor+"; } a:visited{color:"+styler.themeHighlightColor+"}</style>  "+ page.text
                 onLinkActivated:{
                     Qt.openUrlExternally(link)
                 }

@@ -1,11 +1,10 @@
 import QtQuick 2.0
 import "functions.js" as F
-import "Theme.js" as Theme
 
 BackgroundItem {
 
     id: scheduleDelegate
-    height: Math.max(startTimeLabel.height + endTimeLabel.height + roomLabel.height + Theme.paddingMedium, roomLabel.height, titleLabel.height) + 2 * Theme.paddingMedium
+    height: Math.max(startTimeLabel.height + endTimeLabel.height + roomLabel.height + styler.themePaddingMedium, roomLabel.height, titleLabel.height) + 2 * styler.themePaddingMedium
 
     property int startTime;
     property int endTime;
@@ -20,33 +19,33 @@ BackgroundItem {
     Text {
         id: startTimeLabel
         text: F.format_time(startTime);
-        font.pointSize: Theme.tertiary_pointSize;
-        color: scheduleDelegate.highlighted ? Theme.secondary_color_highlight : Theme.secondary_color
+        font.pixelSize: styler.themeFontSizeExtraSmall;
+        color: scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
         anchors.left: parent.left;
         anchors.top: parent.top;
-        anchors.margins: Theme.paddingMedium
+        anchors.margins: styler.themePaddingMedium
         textFormat: Text.RichText;
     }
     Text {
         id: endTimeLabel
         text: F.format_time(endTime);
-        font.pointSize: Theme.tertiary_pointSize;
-        color: scheduleDelegate.highlighted ? Theme.secondary_color_highlight : Theme.secondary_color
+        font.pixelSize: styler.themeFontSizeExtraSmall;
+        color: scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
         anchors.left: parent.left;
         anchors.top: startTimeLabel.bottom
-        anchors.margins: Theme.paddingMedium
+        anchors.margins: styler.themePaddingMedium
         textFormat: Text.RichText;
 
     }
 
     Text {
         id: roomLabel;
-        font.pointSize: Theme.tertiary_pointSize;
+        font.pixelSize: styler.themeFontSizeExtraSmall;
 
-        color: scheduleDelegate.highlighted ? Theme.secondary_color_highlight : Theme.secondary_color
+        color: scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
         anchors.left: parent.left;
         anchors.top: endTimeLabel.bottom;
-        anchors.margins: Theme.paddingMedium
+        anchors.margins: styler.themePaddingMedium
         textFormat: Text.RichText;
 
     }
@@ -56,13 +55,13 @@ BackgroundItem {
         anchors.left: startTimeLabel.right
         anchors.right: parent.right
         anchors.top: parent.top;
-        anchors.margins: Theme.paddingMedium
-        font.pointSize: Theme.secondary_pointSize
+        anchors.margins: styler.themePaddingMedium
+        font.pixelSize: styler.themeFontSizeSmall
 
         text: (speakers_str !== "") ? (speakers_str + ": " + title) : title
         color: (currentTimestamp > endTime)
-               ? (scheduleDelegate.highlighted ? Theme.secondary_color_highlight : Theme.secondary_color)
-                 : (scheduleDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color)
+               ? (scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor)
+                 : (scheduleDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor)
         wrapMode: Text.Wrap;
         textFormat: Text.RichText;
     }
@@ -74,7 +73,7 @@ BackgroundItem {
         anchors.bottom: parent.bottom;
         fillMode: Image.PreserveAspectFit;
         height: 24;
-        anchors.margins: Theme.paddingMedium;
+        anchors.margins: styler.themePaddingMedium;
         opacity: 0.5;
     }
 

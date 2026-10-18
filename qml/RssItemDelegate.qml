@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import "Theme.js" as Theme
 
 BackgroundItem {
 
@@ -11,7 +10,7 @@ BackgroundItem {
     property url link;
     property alias img: avatarImage.source;
 
-    height: Math.max(rssDateLabel.paintedHeight + rssDescriptionLabel.paintedHeight + 2 * Theme.paddingLarge, 2 * Theme.paddingLarge + avatarImage.height)
+    height: Math.max(rssDateLabel.paintedHeight + rssDescriptionLabel.paintedHeight + 2 * styler.themePaddingLarge, 2 * styler.themePaddingLarge + avatarImage.height)
 
     Image {
         id: dummyImage;
@@ -29,7 +28,7 @@ BackgroundItem {
         anchors.top: parent.top;
         width: 0.8 * dpix;
         height: 0.8 * dpiy;
-        anchors.margins: Theme.paddingMedium;
+        anchors.margins: styler.themePaddingMedium;
         fillMode: Image.PreserveAspectCrop;
 
     }
@@ -39,12 +38,12 @@ BackgroundItem {
         anchors.top: parent.top;
         anchors.left: avatarImage.right;
         anchors.right: parent.right;
-        anchors.margins: Theme.paddingLarge;
+        anchors.margins: styler.themePaddingLarge;
 
 
-        color: delegate.highlighted ? Theme.secondary_color_highlight : Theme.secondary_color;
+        color: delegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor;
         wrapMode: Text.Wrap;
-        font.pointSize: Theme.secondary_pointSize
+        font.pixelSize: styler.themeFontSizeSmall
         textFormat: Text.RichText;
 
         text: "<b>" + delegate.title + "</b> " + delegate.description
@@ -56,15 +55,15 @@ BackgroundItem {
         anchors.top: rssDescriptionLabel.bottom;
         anchors.left: avatarImage.right;
         anchors.right: parent.right;
-        anchors.topMargin: Theme.paddingLarge
-        anchors.leftMargin: Theme.paddingLarge;
-        anchors.rightMargin: Theme.paddingLarge;
+        anchors.topMargin: styler.themePaddingLarge
+        anchors.leftMargin: styler.themePaddingLarge;
+        anchors.rightMargin: styler.themePaddingLarge;
         horizontalAlignment: Text.AlignRight
 
 
-        color: delegate.highlighted ? Theme.secondary_color_highlight : Theme.secondary_color;
+        color: delegate.highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor;
         wrapMode: Text.Wrap;
-        font.pointSize: Theme.tertiary_pointSize
+        font.pixelSize: styler.themeFontSizeExtraSmall
         //        text: Format.formatDate(new Date(date*1000), Formatter.TimepointRelative)
         text: new Date(date*1000).toLocaleDateString()
     }

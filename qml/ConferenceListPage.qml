@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import "functions.js" as F
-import "Theme.js" as Theme
 
 Page {
     id: page
@@ -16,18 +15,18 @@ Page {
     ListView {
         model: conferencesListModel
         anchors.fill: parent
-        spacing: Theme.paddingMedium
+        spacing: styler.themePaddingMedium
         delegate: BackgroundItem {
             id: delegate
-            height: Math.max(delegateText.paintedHeight, icon.height) + 2*Theme.paddingMedium;
+            height: Math.max(delegateText.paintedHeight, icon.height) + 2*styler.themePaddingMedium;
 
             Image {
                 id: icon;
                 anchors.top: parent.top;
                 anchors.left: parent.left
-                anchors.topMargin: Theme.paddingMedium;
-                anchors.leftMargin: Theme.paddingMedium;
-                width: Theme.image_button_height
+                anchors.topMargin: styler.themePaddingMedium;
+                anchors.leftMargin: styler.themePaddingMedium;
+                width: styler.themeIconSizeLarge
                 fillMode: Image.PreserveAspectFit
 
                 source: (model.icon !== undefined) ? model.icon : "";
@@ -37,16 +36,16 @@ Page {
             Text {
                 id: delegateText
                 anchors.left: icon.right
-                anchors.margins: Theme.paddingMedium
+                anchors.margins: styler.themePaddingMedium
                 anchors.right: parent.right
                 text: model.title
                 anchors.verticalCenter: parent.verticalCenter
 
-                color: delegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color;
+                color: delegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
 
                 wrapMode: Text.Wrap;
                 textFormat: Text.RichText;
-                font.pointSize: Theme.primary_pointSize
+                font.pixelSize: styler.themeFontSizeMedium
 
             }
             onClicked: {
@@ -74,8 +73,8 @@ Page {
         verticalAlignment: Text.AlignVCenter;
         wrapMode: Text.Wrap;
         textFormat: Text.RichText;
-        font.pointSize: Theme.primary_pointSize
-        color: Theme.primary_color;
+        font.pixelSize: styler.themeFontSizeMedium
+        color: styler.themePrimaryColor;
 
 
     }

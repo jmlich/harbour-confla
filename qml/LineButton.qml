@@ -1,10 +1,9 @@
 import QtQuick 2.0
-import "Theme.js" as Theme
 
 
 BackgroundItem {
     id: lineButton
-    height: Math.max(innerText.paintedHeight, innerImage.sourceSize.height) + Theme.paddingLarge;
+    height: Math.max(innerText.paintedHeight, innerImage.sourceSize.height) + styler.themePaddingLarge;
     width: parent.width;
     anchors.left: parent.left;
     anchors.right: parent.right;
@@ -16,7 +15,7 @@ BackgroundItem {
         id: innerImage;
         anchors.verticalCenter: parent.verticalCenter;
         anchors.left: parent.left;
-        anchors.margins: Theme.paddingLarge
+        anchors.margins: styler.themePaddingLarge
         fillMode: Image.PreserveAspectFit
     }
 
@@ -26,12 +25,12 @@ BackgroundItem {
         anchors.left: innerImage.right
         anchors.right: parent.right
 
-        anchors.margins: Theme.paddingLarge
-        color: lineButton.highlighted ? Theme.primary_color_highlight : Theme.primary_color;
+        anchors.margins: styler.themePaddingLarge
+        color: lineButton.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
 
         wrapMode: Text.Wrap;
 //        font.family: Theme.fontFamily
-        font.pointSize: Theme.secondary_pointSize;
+        font.pixelSize: styler.themeFontSizeSmall;
 
     }
 }

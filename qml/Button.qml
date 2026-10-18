@@ -1,17 +1,16 @@
 import QtQuick 2.0
-import "Theme.js" as Theme
 
 Rectangle {
     id: button;
     width: dpix * 0.5;
     height: dpiy * 0.5;
-    anchors.margins: Theme.paddingMedium
+    anchors.margins: styler.themePaddingMedium
 
     property alias image: icon.source;
     radius: 3;
 
-    color: mouse.pressed ? Theme.background_color_pressed : Theme.background_color;
-    border.color: Theme.background_color_pressed ;
+    color: mouse.pressed ? Qt.rgba(styler.themePrimaryColor.r, styler.themePrimaryColor.g, styler.themePrimaryColor.b, 0.2) : "transparent";
+    border.color: styler.themeSecondaryColor ;
     border.width: 1;
     signal clicked();
     Image {
