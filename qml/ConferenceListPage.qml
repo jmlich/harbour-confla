@@ -51,21 +51,33 @@ PageListPL {
 
         }
         onClicked: {
-            var selectedObj = {
-                "url": model.url,
-                "icon": model.icon,
-                "title": model.title,
-                "version": model.version,
-                "rooms": JSON.parse(model.rooms),
-            }
-            console.log(JSON.stringify(selectedObj, null, 2))
-
-            selectConference(selectedObj, false);
+            selectConference(conferenceAt(index), false);
         }
 
     }
 
 
+
+    function conferenceAt(i) {
+        var item = conferencesListModel.get(i)
+        return {
+            "url": item.url,
+            "icon": item.icon,
+            "title": item.title,
+            "version": item.version,
+            "rooms": JSON.parse(item.rooms),
+        }
+    }
+
+    // opens the conference when it is still in the list, ended conferences are not listed
+    function openConference(url) {
+        for (var i = 0; i < conferencesListModel.count; i++) {
+            if (conferencesListModel.get(i).url === url) {
+                selectConference(conferenceAt(i), false);
+                return;
+            }
+        }
+    }
 
     // Giggity keeps room locations in metadata.rooms, some menu entries have them at the top level
     function conferenceRooms(conf) {

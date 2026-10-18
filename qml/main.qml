@@ -19,6 +19,7 @@ ApplicationWindowPL {
         ConferenceListPage {
             id: conferenceListPage
             onSelectConference: {
+                dataSource.configSet("last_conference", conf_data['url']);
     //            name, url, checksum, feedback_url
                 dataSource.init_conference(conf_data);
                 if (replace) {
@@ -103,6 +104,15 @@ ApplicationWindowPL {
 
     Component.onCompleted: {
         dataSource.init_data()
+    }
+
+    // reopen the last conference once the page stack is ready, back goes to the conference list
+    property var openLastTimer: Timer {
+        interval: 0
+        running: true
+        onTriggered: {
+            conferenceListPage.openConference(dataSource.configGet("last_conference", ""));
+        }
     }
 
     function tr(message) {
