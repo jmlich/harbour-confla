@@ -12,62 +12,75 @@ ApplicationWindowPL {
     property bool infoActive: false
     property var styler: StylerPL {}
 
-    property var conferenceListPage: ConferenceListPage {
-        onSelectConference: {
-//            name, url, checksum, feedback_url
-            dataSource.init_conference(conf_data);
-            if (replace) {
-                app.pages.replace(conferenceDetailPage);
-            } else {
-                app.pages.push(conferenceDetailPage);
+    // Kirigami deletes a popped page that has no parent item, keep the pages here
+    property Item pageParent: Item {
+        visible: false
+
+        ConferenceListPage {
+            id: conferenceListPage
+            onSelectConference: {
+    //            name, url, checksum, feedback_url
+                dataSource.init_conference(conf_data);
+                if (replace) {
+                    app.pages.replace(conferenceDetailPage);
+                } else {
+                    app.pages.push(conferenceDetailPage);
+
+                }
+            }
+        }
+
+        ConferenceDetailPage {
+            id: conferenceDetailPage
+        }
+
+        AboutPage {
+            id: aboutPage
+        }
+
+        SchedulePage {
+            id: schedulePage
+            onSaveFavorites: {
+                dataSource.setFavorites(conferenceDetailPage.url_id, favoritesModel);
+            }
+
+        }
+
+        EventDetailPage {
+            id: eventDetailPage
+            onAddToFavorites: {
+                schedulePage.addToFavorites(session_id);
+            }
+            onRemoveFromFavorites: {
+                schedulePage.removeFromFavorites(session_id);
+            }
+        }
+
+        MapPage {
+            id: mapPage
+            onShowDetail: {
+                placesDetailPage.name = name;
+                placesDetailPage.description = description;
+                placesDetailPage.image = icon;
+                placesDetailPage.lat = lat;
+                placesDetailPage.lon = lon;
+                app.pages.push(placesDetailPage)
+            }
+        }
+
+        PlaceDetailPage {
+            id: placesDetailPage
+            onShowOnMap: {
+                mapPage.mapWidget.setZoomLevel(15)
+                mapPage.mapWidget.setCenterLatLon(lat, lon);
+                app.pages.pop();
 
             }
         }
-    }
 
-    property var conferenceDetailPage: ConferenceDetailPage {
-    }
-
-    property var aboutPage: AboutPage {
-    }
-
-    property var schedulePage: SchedulePage {
-        onSaveFavorites: {
-            dataSource.setFavorites(conferenceDetailPage.url_id, favoritesModel);
+        PhotoDetailPage {
+            id: photoDetailPage
         }
-
-    }
-
-    property var eventDetailPage: EventDetailPage {
-        onAddToFavorites: {
-            schedulePage.addToFavorites(session_id);
-        }
-        onRemoveFromFavorites: {
-            schedulePage.removeFromFavorites(session_id);
-        }
-    }
-
-    property var mapPage: MapPage {
-        onShowDetail: {
-            placesDetailPage.name = name;
-            placesDetailPage.description = description;
-            placesDetailPage.image = icon;
-            placesDetailPage.lat = lat;
-            placesDetailPage.lon = lon;
-            app.pages.push(placesDetailPage)
-        }
-    }
-
-    property var placesDetailPage: PlaceDetailPage {
-        onShowOnMap: {
-            mapPage.mapWidget.setZoomLevel(15)
-            mapPage.mapWidget.setCenterLatLon(lat, lon);
-            app.pages.pop();
-
-        }
-    }
-
-    property var photoDetailPage: PhotoDetailPage {
     }
 
     property var dataSource: Data {
