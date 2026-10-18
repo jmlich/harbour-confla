@@ -1,7 +1,8 @@
 import QtQuick 2.0
+import "components/platform"
 import "functions.js" as F
 
-Page {
+PageListPL {
     id: page
     //% "Confla"
     title: qsTrId("application-title")
@@ -12,73 +13,58 @@ Page {
         id: conferencesListModel;
     }
 
-    ListView {
-        model: conferencesListModel
-        anchors.fill: parent
-        spacing: styler.themePaddingMedium
-        delegate: BackgroundItem {
-            id: delegate
-            height: Math.max(delegateText.paintedHeight, icon.height) + 2*styler.themePaddingMedium;
+    model: conferencesListModel
+    placeholderEnabled: (conferencesListModel.count == 0)
+    //% "List of conferences is empty"
+    placeholderText: qsTrId("conference-list-page-list-is-empty")
 
-            Image {
-                id: icon;
-                anchors.top: parent.top;
-                anchors.left: parent.left
-                anchors.topMargin: styler.themePaddingMedium;
-                anchors.leftMargin: styler.themePaddingMedium;
-                width: styler.themeIconSizeLarge
-                fillMode: Image.PreserveAspectFit
+    delegate: BackgroundItem {
+        id: delegate
+        height: Math.max(delegateText.paintedHeight, icon.height) + 2*styler.themePaddingMedium;
 
-                source: (model.icon !== undefined) ? model.icon : "";
+        Image {
+            id: icon;
+            anchors.top: parent.top;
+            anchors.left: parent.left
+            anchors.topMargin: styler.themePaddingMedium;
+            anchors.leftMargin: styler.themePaddingMedium;
+            width: styler.themeIconSizeLarge
+            fillMode: Image.PreserveAspectFit
+
+            source: (model.icon !== undefined) ? model.icon : "";
+        }
+
+
+        Text {
+            id: delegateText
+            anchors.left: icon.right
+            anchors.margins: styler.themePaddingMedium
+            anchors.right: parent.right
+            text: model.title
+            anchors.verticalCenter: parent.verticalCenter
+
+            color: delegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
+
+            wrapMode: Text.Wrap;
+            textFormat: Text.RichText;
+            font.pixelSize: styler.themeFontSizeMedium
+
+        }
+        onClicked: {
+            var selectedObj = {
+                "url": model.url,
+                "icon": model.icon,
+                "title": model.title,
+                "version": model.version,
+                "rooms": JSON.parse(model.rooms),
             }
+            console.log(JSON.stringify(selectedObj, null, 2))
 
-
-            Text {
-                id: delegateText
-                anchors.left: icon.right
-                anchors.margins: styler.themePaddingMedium
-                anchors.right: parent.right
-                text: model.title
-                anchors.verticalCenter: parent.verticalCenter
-
-                color: delegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
-
-                wrapMode: Text.Wrap;
-                textFormat: Text.RichText;
-                font.pixelSize: styler.themeFontSizeMedium
-
-            }
-            onClicked: {
-                var selectedObj = {
-                    "url": model.url,
-                    "icon": model.icon,
-                    "title": model.title,
-                    "version": model.version,
-                    "rooms": JSON.parse(model.rooms),
-                }
-                console.log(JSON.stringify(selectedObj, null, 2))
-
-                selectConference(selectedObj, false);
-            }
-
+            selectConference(selectedObj, false);
         }
 
     }
 
-    Text {
-        visible: (conferencesListModel.count == 0);
-        //% "List of conferences is empty"
-        text: qsTrId("conference-list-page-list-is-empty")
-        anchors.fill: parent;
-        horizontalAlignment: Text.AlignHCenter;
-        verticalAlignment: Text.AlignVCenter;
-        wrapMode: Text.Wrap;
-        textFormat: Text.RichText;
-        font.pixelSize: styler.themeFontSizeMedium
-        color: styler.themePrimaryColor;
-
-
-    }
 
 
     // Giggity keeps room locations in metadata.rooms, some menu entries have them at the top level

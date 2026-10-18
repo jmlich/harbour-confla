@@ -1,8 +1,9 @@
 import QtQuick 2.0
+import "components/platform"
 
 import "functions.js" as F
 
-Page {
+PageEmptyPL {
     id: page
 //    allowedOrientations: Orientation.All
 

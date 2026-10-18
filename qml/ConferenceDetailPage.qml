@@ -1,243 +1,234 @@
 import QtQuick 2.0
+import "components/platform"
 import "functions.js" as F
 
-Page {
+PagePL {
     id: page
     property alias name: page.title;
     property string url_id: ""
     property string feedback_url: ""
 
-    Flickable {
-        anchors.fill: parent
+    Column {
+        id: column
 
-        contentHeight: column.height
+        width: page.width
+        spacing: styler.themePaddingSmall
 
-        Component.onCompleted: {
-            maximumFlickVelocity *= 2
+        SectionHeader {
+            //% "About"
+            text: qsTrId("section-header-about")
+            visible: (aboutModel.count > 0)
         }
 
-        Column {
-            id: column
 
-            width: page.width
-            spacing: styler.themePaddingSmall
-
-            SectionHeader {
-                //% "About"
-                text: qsTrId("section-header-about")
-                visible: (aboutModel.count > 0)
-            }
-
-
-            Repeater {
-                model: aboutModel
-                delegate: BackgroundItem {
-                    id: aboutDelegate
-                    width: column.width;
-                    height: aboutDelegateText.paintedHeight + styler.themePaddingLarge;
-                    Text {
-                        id: aboutDelegateText
-                        x: styler.themePaddingLarge
-                        text: model.title
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        color: aboutDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
-
-                        wrapMode: Text.Wrap;
-                        font.pixelSize: styler.themeFontSizeMedium
-
-                    }
-                    onClicked: {
-                        aboutPage.title = model.title;
-                        aboutPage.text = model.text;
-                        app.pages.push(aboutPage);
-                    }
-
-                }
-            }
-
-            Repeater {
-                model: venueMapModel
-                delegate: BackgroundItem {
-                    id: venueMapDelegate
-                    width: column.width;
-                    height: venueMapDelegateText.paintedHeight + styler.themePaddingLarge;
-                    Text {
-                        id: venueMapDelegateText
-                        x: styler.themePaddingLarge
-                        text: model.title
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        color: venueMapDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
-                        wrapMode: Text.Wrap;
-                        font.pixelSize: styler.themeFontSizeMedium
-
-                    }
-                    onClicked: {
-                        var local_url = IMAGE_CACHE_FOLDER + "/" + filereader.getBasename(model.image)
-
-                        photoDetailPage.addr = (filereader.file_exists(local_url)) ? local_url : model.image;
-
-                        app.pages.push(photoDetailPage)
-                    }
-
-                }
-            }
-
-
-            BackgroundItem {
-                id: mapDelegate
-                width: column.width
-                height: mapDelegateText.paintedHeight + styler.themePaddingLarge;
-                visible: (mapPage.mapWidget.places.count > 0)
-
+        Repeater {
+            model: aboutModel
+            delegate: BackgroundItem {
+                id: aboutDelegate
+                width: column.width;
+                height: aboutDelegateText.paintedHeight + styler.themePaddingLarge;
                 Text {
-                    id: mapDelegateText;
+                    id: aboutDelegateText
                     x: styler.themePaddingLarge
-                    //% "Important Places"
-                    text: qsTrId("section-about-places")
+                    text: model.title
                     anchors.verticalCenter: parent.verticalCenter
 
-                    color: mapDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                    wrapMode: Text.Wrap;
-                    //                    font.family: Theme.fontFamily
-                    font.pixelSize: styler.themeFontSizeMedium;
+                    color: aboutDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
 
-                }
-                onClicked: {
-                    app.pages.push(mapPage)
-                }
-
-            }
-
-
-            SectionHeader {
-                //% "Schedule"
-                text: qsTrId("section-header-schedule")
-                visible: (daysModel.count > 0)
-            }
-
-            Repeater {
-                model: daysModel
-                delegate: BackgroundItem {
-                    id: daysDelegate
-                    height: daysDelegateText.paintedHeight + styler.themePaddingLarge;
-                    Text {
-                        id: daysDelegateText
-                        x: styler.themePaddingLarge
-                        text: name
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        color: daysDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
-                        wrapMode: Text.Wrap;
-                        font.pixelSize: styler.themeFontSizeMedium
-
-                    }
-                    onClicked: {
-                        schedulePage.filter_favorites = false;
-                        schedulePage.filter_start = parseInt(timestamp, 10)
-                        schedulePage.filter_end = parseInt(timestamp, 10) + 24 * 3600
-                        schedulePage.updateFilter();
-
-                        app.pages.push(schedulePage)
-                    }
-
-                }
-            }
-
-            BackgroundItem {
-                id: favoritesDelegate
-                width: column.width
-                height: favoritesDelegateText.paintedHeight + styler.themePaddingLarge;
-                visible: (schedulePage.favoritesModel.length > 0)
-                Text {
-                    id: favoritesDelegateText
-                    x: styler.themePaddingLarge
-                    //% "Favorites"
-                    text: qsTrId("section-favorites")
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: favoritesDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
                     wrapMode: Text.Wrap;
                     font.pixelSize: styler.themeFontSizeMedium
 
+                }
+                onClicked: {
+                    aboutPage.title = model.title;
+                    aboutPage.text = model.text;
+                    app.pages.push(aboutPage);
+                }
+
+            }
+        }
+
+        Repeater {
+            model: venueMapModel
+            delegate: BackgroundItem {
+                id: venueMapDelegate
+                width: column.width;
+                height: venueMapDelegateText.paintedHeight + styler.themePaddingLarge;
+                Text {
+                    id: venueMapDelegateText
+                    x: styler.themePaddingLarge
+                    text: model.title
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    color: venueMapDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
+                    wrapMode: Text.Wrap;
+                    font.pixelSize: styler.themeFontSizeMedium
 
                 }
                 onClicked: {
-                    schedulePage.filter_favorites = true;
+                    var local_url = IMAGE_CACHE_FOLDER + "/" + filereader.getBasename(model.image)
+
+                    photoDetailPage.addr = (filereader.file_exists(local_url)) ? local_url : model.image;
+
+                    app.pages.push(photoDetailPage)
+                }
+
+            }
+        }
+
+
+        BackgroundItem {
+            id: mapDelegate
+            width: column.width
+            height: mapDelegateText.paintedHeight + styler.themePaddingLarge;
+            visible: (mapPage.mapWidget.places.count > 0)
+
+            Text {
+                id: mapDelegateText;
+                x: styler.themePaddingLarge
+                //% "Important Places"
+                text: qsTrId("section-about-places")
+                anchors.verticalCenter: parent.verticalCenter
+
+                color: mapDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                wrapMode: Text.Wrap;
+                //                    font.family: Theme.fontFamily
+                font.pixelSize: styler.themeFontSizeMedium;
+
+            }
+            onClicked: {
+                app.pages.push(mapPage)
+            }
+
+        }
+
+
+        SectionHeader {
+            //% "Schedule"
+            text: qsTrId("section-header-schedule")
+            visible: (daysModel.count > 0)
+        }
+
+        Repeater {
+            model: daysModel
+            delegate: BackgroundItem {
+                id: daysDelegate
+                height: daysDelegateText.paintedHeight + styler.themePaddingLarge;
+                Text {
+                    id: daysDelegateText
+                    x: styler.themePaddingLarge
+                    text: name
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    color: daysDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
+                    wrapMode: Text.Wrap;
+                    font.pixelSize: styler.themeFontSizeMedium
+
+                }
+                onClicked: {
+                    schedulePage.filter_favorites = false;
+                    schedulePage.filter_start = parseInt(timestamp, 10)
+                    schedulePage.filter_end = parseInt(timestamp, 10) + 24 * 3600
                     schedulePage.updateFilter();
+
                     app.pages.push(schedulePage)
                 }
 
             }
+        }
 
-            SectionHeader {
-                //% "Upcoming talks"
-                text: qsTrId("section-header-upcoming-talks")
-                visible: (currentEvents.count > 0)
-            }
+        BackgroundItem {
+            id: favoritesDelegate
+            width: column.width
+            height: favoritesDelegateText.paintedHeight + styler.themePaddingLarge;
+            visible: (schedulePage.favoritesModel.length > 0)
+            Text {
+                id: favoritesDelegateText
+                x: styler.themePaddingLarge
+                //% "Favorites"
+                text: qsTrId("section-favorites")
+                anchors.verticalCenter: parent.verticalCenter
+                color: favoritesDelegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor;
+                wrapMode: Text.Wrap;
+                font.pixelSize: styler.themeFontSizeMedium
 
-            Repeater {
-                model: currentEvents;
-                delegate: ScheduleDelegate {
-                    startTime: parseInt(model.event_start, 10);
-                    endTime: parseInt(model.event_end, 10);
-                    roomShort: model.room_short;
-                    roomColor:  model.room_color;
-                    speakers_str: model.speakers_str;
-                    title: model.title
-                    inFavorites: schedulePage.isInFavorites(model.session_id);
-
-                    onClicked: {
-                        //                        eventDetailPage.title = model.type;
-                        eventDetailPage.talkName = model.title
-                        eventDetailPage.description = model.description
-                        eventDetailPage.startTime = F.format_time(model.event_start);
-                        eventDetailPage.endTime = F.format_time(model.event_end);
-                        eventDetailPage.startDay = model.event_day;
-                        eventDetailPage.room = model.room;
-                        eventDetailPage.roomColor = model.room_color
-                        eventDetailPage.um.clear()
-                        var speakersArray = JSON.parse(model.speakers);
-                        for (var i = 0; i < speakersArray.length; i++) {
-                            var detail = dataSource.getSpeakerDetail(speakersArray[i])
-                            if (detail !== undefined) {
-                                eventDetailPage.um.append(detail)
-                            }
-                        }
-
-                        eventDetailPage.tags = model.tags_str;
-                        eventDetailPage.session_id = model.session_id;
-                        eventDetailPage.inFavorites = schedulePage.isInFavorites(model.session_id);
-                        app.pages.push(eventDetailPage);
-                    }
-
-                }
-            }
-
-
-            SectionHeader {
-                //% "News"
-                text: qsTrId("section-header-news")
-                visible: (rssModel.count > 0)
-            }
-
-            Repeater {
-                id: rssRepeater
-                model: rssModel
-                delegate: RssItemDelegate {
-                    //                    img: (model.avatar !== undefined) ? model.avatar : ""
-                    img: model.avatar;
-                    title: model.title
-                    description: model.description
-                    link: model.link
-                    date: model.time
-                }
 
             }
-
-
+            onClicked: {
+                schedulePage.filter_favorites = true;
+                schedulePage.updateFilter();
+                app.pages.push(schedulePage)
+            }
 
         }
+
+        SectionHeader {
+            //% "Upcoming talks"
+            text: qsTrId("section-header-upcoming-talks")
+            visible: (currentEvents.count > 0)
+        }
+
+        Repeater {
+            model: currentEvents;
+            delegate: ScheduleDelegate {
+                startTime: parseInt(model.event_start, 10);
+                endTime: parseInt(model.event_end, 10);
+                roomShort: model.room_short;
+                roomColor:  model.room_color;
+                speakers_str: model.speakers_str;
+                title: model.title
+                inFavorites: schedulePage.isInFavorites(model.session_id);
+
+                onClicked: {
+                    //                        eventDetailPage.title = model.type;
+                    eventDetailPage.talkName = model.title
+                    eventDetailPage.description = model.description
+                    eventDetailPage.startTime = F.format_time(model.event_start);
+                    eventDetailPage.endTime = F.format_time(model.event_end);
+                    eventDetailPage.startDay = model.event_day;
+                    eventDetailPage.room = model.room;
+                    eventDetailPage.roomColor = model.room_color
+                    eventDetailPage.um.clear()
+                    var speakersArray = JSON.parse(model.speakers);
+                    for (var i = 0; i < speakersArray.length; i++) {
+                        var detail = dataSource.getSpeakerDetail(speakersArray[i])
+                        if (detail !== undefined) {
+                            eventDetailPage.um.append(detail)
+                        }
+                    }
+
+                    eventDetailPage.tags = model.tags_str;
+                    eventDetailPage.session_id = model.session_id;
+                    eventDetailPage.inFavorites = schedulePage.isInFavorites(model.session_id);
+                    app.pages.push(eventDetailPage);
+                }
+
+            }
+        }
+
+
+        SectionHeader {
+            //% "News"
+            text: qsTrId("section-header-news")
+            visible: (rssModel.count > 0)
+        }
+
+        Repeater {
+            id: rssRepeater
+            model: rssModel
+            delegate: RssItemDelegate {
+                //                    img: (model.avatar !== undefined) ? model.avatar : ""
+                img: model.avatar;
+                title: model.title
+                description: model.description
+                link: model.link
+                date: model.time
+            }
+
+        }
+
+
+
     }
 
     ListModel {

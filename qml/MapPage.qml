@@ -1,7 +1,8 @@
 import QtQuick 2.0
+import "components/platform"
 import QtPositioning 5.0
 
-Page {
+PageEmptyPL {
     id: page;
     //% "Places"
     title: qsTrId("map-title")

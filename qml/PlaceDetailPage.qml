@@ -1,6 +1,8 @@
 import QtQuick 2.0
+import "components/platform"
 
-Page {
+PagePL {
+    id: page
     //% "Place"
     title: qsTrId("place-detail-header-place")
     property alias name: title_label.text
@@ -12,9 +14,10 @@ Page {
     signal showOnMap();
 
 
-    Flickable {
-        anchors.fill: parent;
-        contentHeight: title_label.height + description_label.height + styler.themePaddingSmall + 2 * styler.themePaddingMedium;
+    Item {
+        width: page.width
+        implicitHeight: childrenRect.height
+        height: implicitHeight
         //        PullDownMenu {
         //            MenuItem {
         //                //% "Show on map"
