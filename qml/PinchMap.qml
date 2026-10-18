@@ -166,7 +166,7 @@ Rectangle {
         var l = getCenter()
         longitude = l[1]
         latitude = l[0]
-        //        updateGeocaches();
+        cleanCache();
     }
 
     function requestUpdate() {
@@ -289,7 +289,43 @@ Rectangle {
         if (ty < 0 || ty > maxTileNo) {
             return "./images/noimage.png"
         }
-        return F.getMapTile(remoteUrl, tx, ty, zoomLevel);
+        var imageUrl = F.getMapTile(remoteUrl, tx, ty, zoomLevel);
+        for (var i = 0; i < imageCache.length; i++) {
+            if (imageCache[i].source.toString() === imageUrl) {
+                imageCache[i].lastHit = new Date();
+                return imageUrl;
+            }
+        }
+
+        imageCache.push(cachedTile.createObject(pinchmap, { "source": imageUrl }));
+        return imageUrl;
+    }
+
+    // The hidden images keep recently shown tiles loaded, so they appear at once after panning or zooming.
+    // Taken from the editor's PinchMap.
+    property var imageCache: []
+
+    Component {
+        id: cachedTile
+        Image {
+            property var lastHit: new Date();
+            visible: false;
+        }
+    }
+
+    function cleanCache() {
+        if (imageCache.length < 100) {
+            return;
+        }
+        var someTimeAgo = new Date().getTime() - 60000;
+
+        // backwards, so splice does not skip the next item
+        for (var i = imageCache.length - 1; i >= 0; i--) {
+            if (imageCache[i].lastHit.getTime() < someTimeAgo) {
+                imageCache[i].destroy();
+                imageCache.splice(i, 1);
+            }
+        }
     }
 
     function imageStatusToString(status) {
