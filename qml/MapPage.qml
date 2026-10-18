@@ -4,6 +4,8 @@ import "Theme.js" as Theme
 
 Page {
     id: page;
+    //% "Places"
+    title: qsTrId("map-title")
 
     property alias deviceLat: map.currentPositionLat
     property alias deviceLon: map.currentPositionLon
@@ -15,24 +17,10 @@ Page {
 
     Flickable {
         anchors.fill: parent;
-        contentHeight: map_visible ? page.height : (pageHeader.height + listColumn.height)
-
-
-        PageHeader {
-            id: pageHeader;
-            //% "Places"
-            title: qsTrId("map-title")
-            MouseArea {
-                anchors.fill: parent;
-                onClicked: {
-                    map_visible = !map_visible;
-                }
-            }
-        }
+        contentHeight: map_visible ? page.height : listColumn.height
 
         Column {
             id: listColumn
-            anchors.top: pageHeader.bottom;
             visible: !map_visible;
             width: page.width
 
@@ -91,10 +79,7 @@ Page {
         PinchMap {
 
             id: map
-            anchors.top: pageHeader.bottom;
-            anchors.left: parent.left;
-            anchors.right: parent.right;
-            anchors.bottom: parent.bottom;
+            anchors.fill: parent;
             clip: true;
             visible: map_visible;
             pageActive: map_visible && page.pageActive;

@@ -4,6 +4,8 @@ import "Theme.js" as Theme
 
 Page {
     id: page
+    //% "Confla"
+    title: qsTrId("application-title")
 
     signal selectConference(variant conf_data, bool replace );
 

@@ -5,6 +5,10 @@ import "functions.js" as F
 
 Page {
     id: page
+    title: filter_favorites ?
+               //% "Favorites"
+               qsTrId("schedule-page-header-favorites") :
+               dayName
 
     property int filter_start: 0;
     property int filter_end: filter_start + 24*3600;
@@ -135,7 +139,7 @@ Page {
                     }
 
 
-                    pageStack.push(eventDetailPage);
+                    app.pages.push(eventDetailPage);
                 }
 
             }
@@ -153,13 +157,6 @@ Page {
             maximumFlickVelocity *= 2
         }
 
-        header: PageHeader {
-            id: pageHeader
-            title: filter_favorites ?
-                       //% "Favorites"
-                       qsTrId("schedule-page-header-favorites") :
-                       dayName
-        }
         section.property: filter_favorites ? "event_day" : "";
         section.criteria: ViewSection.FullString;
 
@@ -200,7 +197,7 @@ Page {
                         eventDetailPage.um.append(detail)
                     }
                 }
-                pageStack.push(eventDetailPage);
+                app.pages.push(eventDetailPage);
             }
 
         }

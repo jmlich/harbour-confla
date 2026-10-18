@@ -4,6 +4,8 @@ import "Theme.js" as Theme
 
 Page {
     id: page
+    //% "Talk"
+    title: qsTrId("event-detail-title")
 
     property alias um: usersModel;
     //    property alias title: header.title

@@ -2,6 +2,8 @@ import QtQuick 2.0
 import "Theme.js" as Theme
 
 Page {
+    //% "Place"
+    title: qsTrId("place-detail-header-place")
     property alias name: title_label.text
     property string description;
     property alias image: placesDelegate.source;
@@ -13,7 +15,7 @@ Page {
 
     Flickable {
         anchors.fill: parent;
-        contentHeight: pageHeader.height + title_label.height + description_label.height + Theme.paddingSmall + 2 * Theme.paddingMedium;
+        contentHeight: title_label.height + description_label.height + Theme.paddingSmall + 2 * Theme.paddingMedium;
         //        PullDownMenu {
         //            MenuItem {
         //                //% "Show on map"
@@ -30,15 +32,6 @@ Page {
         //                }
         //            }
         //        }
-
-        PageHeader {
-            id: pageHeader
-            anchors.top: parent.top;
-            anchors.right: parent.right;
-            anchors.left: parent.left;
-            //% "Place"
-            title: qsTrId("place-detail-header-place")
-        }
 
         Image {
             id: placesDelegate
@@ -68,7 +61,7 @@ Page {
         Text {
             id: title_label
             anchors.margins: Theme.paddingSmall;
-            anchors.top: pageHeader.bottom;
+            anchors.top: parent.top;
             anchors.left: placesDelegate.right;
             anchors.right: parent.right
             wrapMode: Text.Wrap;

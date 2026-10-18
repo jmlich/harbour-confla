@@ -4,7 +4,7 @@ import "Theme.js" as Theme
 
 Page {
     id: page
-    property alias name: conferenceName.title;
+    property alias name: page.title;
     property string url_id: ""
     property string feedback_url: ""
 
@@ -23,10 +23,6 @@ Page {
             width: page.width
             spacing: Theme.paddingSmall
 
-            PageHeader {
-                id: conferenceName
-            }
-
             SectionHeader {
                 //% "About"
                 text: qsTrId("section-header-about")
@@ -43,7 +39,7 @@ Page {
                     Text {
                         id: aboutDelegateText
                         x: Theme.paddingLarge
-                        text: title
+                        text: model.title
                         anchors.verticalCenter: parent.verticalCenter
 
                         color: aboutDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color;
@@ -55,7 +51,7 @@ Page {
                     onClicked: {
                         aboutPage.title = model.title;
                         aboutPage.text = model.text;
-                        pageStack.push(aboutPage);
+                        app.pages.push(aboutPage);
                     }
 
                 }
@@ -70,7 +66,7 @@ Page {
                     Text {
                         id: venueMapDelegateText
                         x: Theme.paddingLarge
-                        text: title
+                        text: model.title
                         anchors.verticalCenter: parent.verticalCenter
 
                         color: venueMapDelegate.highlighted ? Theme.primary_color_highlight : Theme.primary_color;
@@ -83,7 +79,7 @@ Page {
 
                         photoDetailPage.addr = (filereader.file_exists(local_url)) ? local_url : model.image;
 
-                        pageStack.push(photoDetailPage)
+                        app.pages.push(photoDetailPage)
                     }
 
                 }
@@ -110,7 +106,7 @@ Page {
 
                 }
                 onClicked: {
-                    pageStack.push(mapPage)
+                    app.pages.push(mapPage)
                 }
 
             }
@@ -144,7 +140,7 @@ Page {
                         schedulePage.filter_end = parseInt(timestamp, 10) + 24 * 3600
                         schedulePage.updateFilter();
 
-                        pageStack.push(schedulePage)
+                        app.pages.push(schedulePage)
                     }
 
                 }
@@ -170,7 +166,7 @@ Page {
                 onClicked: {
                     schedulePage.filter_favorites = true;
                     schedulePage.updateFilter();
-                    pageStack.push(schedulePage)
+                    app.pages.push(schedulePage)
                 }
 
             }
@@ -213,7 +209,7 @@ Page {
                         eventDetailPage.tags = model.tags_str;
                         eventDetailPage.session_id = model.session_id;
                         eventDetailPage.inFavorites = schedulePage.isInFavorites(model.session_id);
-                        pageStack.push(eventDetailPage);
+                        app.pages.push(eventDetailPage);
                     }
 
                 }

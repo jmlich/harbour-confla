@@ -1,59 +1,44 @@
-import QtQuick 2.2
-import QtQuick.Controls 1.1
+import QtQuick 2.0
 import cz.mlich 1.0
-import "Theme.js" as Theme
+import "components/platform"
 
-ApplicationWindow {
+ApplicationWindowPL {
     id: app
-    visible: true
-    width: 480
-    height: 800
     //% "Confla"
     title: qsTrId("application-title")
-    color: Theme.background_color
+    initialPage: conferenceListPage
 
+    // used by the platform components
+    property bool infoActive: false
+    property var styler: StylerPL {}
 
-    StackView {
-        id: pageStack;
-        initialItem: conferenceListPage;
-        anchors.fill: parent;
-        width: parent.width;
-        height: parent.height
-    }
-
-    ConferenceListPage {
-        id: conferenceListPage;
+    property var conferenceListPage: ConferenceListPage {
         onSelectConference: {
 //            name, url, checksum, feedback_url
             dataSource.init_conference(conf_data);
             if (replace) {
-                pageStack.replace(conferenceDetailPage);
+                app.pages.replace(conferenceDetailPage);
             } else {
-                pageStack.push(conferenceDetailPage);
+                app.pages.push(conferenceDetailPage);
 
             }
         }
     }
 
-    ConferenceDetailPage {
-        id: conferenceDetailPage
-
+    property var conferenceDetailPage: ConferenceDetailPage {
     }
 
-    AboutPage {
-        id: aboutPage;
+    property var aboutPage: AboutPage {
     }
 
-    SchedulePage {
-        id: schedulePage
+    property var schedulePage: SchedulePage {
         onSaveFavorites: {
             dataSource.setFavorites(conferenceDetailPage.url_id, favoritesModel);
         }
 
     }
 
-    EventDetailPage {
-        id: eventDetailPage;
+    property var eventDetailPage: EventDetailPage {
         onAddToFavorites: {
             schedulePage.addToFavorites(session_id);
         }
@@ -62,68 +47,34 @@ ApplicationWindow {
         }
     }
 
-    MapPage {
-        id: mapPage;
+    property var mapPage: MapPage {
         onShowDetail: {
             placesDetailPage.name = name;
             placesDetailPage.description = description;
             placesDetailPage.image = icon;
             placesDetailPage.lat = lat;
             placesDetailPage.lon = lon;
-            pageStack.push(placesDetailPage)
+            app.pages.push(placesDetailPage)
         }
     }
 
-    PlaceDetailPage {
-        id: placesDetailPage;
+    property var placesDetailPage: PlaceDetailPage {
         onShowOnMap: {
             mapPage.mapWidget.setZoomLevel(15)
             mapPage.mapWidget.setCenterLatLon(lat, lon);
             mapPage.map_visible = true;
-            pageStack.pop();
+            app.pages.pop();
 
         }
     }
 
-    PhotoDetailPage {
-        id: photoDetailPage
+    property var photoDetailPage: PhotoDetailPage {
     }
 
-    Data {
-        id: dataSource;
+    property var dataSource: Data {
     }
 
-
-    Component.onCompleted: {
-        dataSource.init_data()
-        focusScope.forceActiveFocus();
-    }
-
-
-    FocusScope {
-        id: focusScope;
-        anchors.fill: parent;
-        focus: true;
-
-        Keys.onPressed: {
-
-            switch (event.key ) {
-            case Qt.Key_Back:
-            case Qt.Key_Left:
-                if (pageStack.depth > 1) {
-                    event.accepted = true
-                    pageStack.pop();
-                }
-
-                break;
-            case Qt.Key_Right:
-                break;
-            }
-
-        }
-    }
-
-    Timer {
+    property var updateTimer: Timer {
         running: true;
         repeat: true;
         interval: 600000; // 10 minutes
@@ -132,13 +83,17 @@ ApplicationWindow {
         }
     }
 
-    FileReader {
-        id: filereader;
+    property var filereader: FileReader {
     }
 
-    Downloader {
-        id: downloader;
+    property var downloader: Downloader {
     }
 
+    Component.onCompleted: {
+        dataSource.init_data()
+    }
 
+    function tr(message) {
+        return message
+    }
 }

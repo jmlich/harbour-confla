@@ -5,7 +5,6 @@ import "Theme.js" as Theme
 Page {
     id: page
 
-    property alias title: header.title
     property string text
 
     Flickable {
@@ -17,10 +16,6 @@ Page {
 
             width: page.width
             spacing: Theme.paddingLarge
-            PageHeader {
-                id: header
-            }
-
             Text {
                 id: contentLabel
                 wrapMode: Text.Wrap;
