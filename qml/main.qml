@@ -41,7 +41,7 @@ ApplicationWindowPL {
         SchedulePage {
             id: schedulePage
             onSaveFavorites: {
-                dataSource.setFavorites(conferenceDetailPage.url_id, favoritesModel);
+                dataSource.setFavorites(dataSource.data["url"], favoritesModel);
             }
 
         }
