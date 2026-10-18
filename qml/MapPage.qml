@@ -60,7 +60,7 @@ PageEmptyPL {
             }
             Image {
                 anchors.centerIn: placesDelegate;
-                source: "./images/marker-icon.png"
+                source: (index === map.selectedIndex) ? "./images/marker-icon-red.png" : "./images/marker-icon.png"
                 visible: (placesDelegate.status !== Image.Ready)
                 fillMode: Image.PreserveAspectFit
             }
