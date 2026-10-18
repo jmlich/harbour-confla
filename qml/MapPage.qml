@@ -44,9 +44,9 @@ PageEmptyPL {
         anchors.bottom: parent.bottom;
         clip: true;
         model: map.places;
-        delegate: BackgroundItem {
+        delegate: ListItemPL {
             id: delegate;
-            height: Math.max(placesDelegate.height, placesDelegateColumn.height) + 2 * styler.themePaddingSmall
+            contentHeight: Math.max(placesDelegate.height, placesDelegateColumn.height) + 2 * styler.themePaddingSmall
             Image {
                 id: placesDelegate
                 anchors.left: parent.left;

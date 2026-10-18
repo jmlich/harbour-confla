@@ -1,20 +1,25 @@
 import QtQuick 2.0
+import "components/platform"
 import "functions.js" as F
 
-BackgroundItem {
+ListItemPL {
 
     id: scheduleDelegate
-    height: Math.max(startTimeLabel.height + endTimeLabel.height + roomLabel.height + styler.themePaddingMedium, roomLabel.height, titleLabel.height) + 2 * styler.themePaddingMedium
+    contentHeight: Math.max(startTimeLabel.height + endTimeLabel.height + roomLabel.height + styler.themePaddingMedium, roomLabel.height, titleLabel.height) + 2 * styler.themePaddingMedium
 
     property int startTime;
     property int endTime;
     property alias roomShort: roomLabel.text;
     property color roomColor
-    color: highlighted ? Qt.darker(roomColor): roomColor
     property string speakers_str;
     property string title;
     property int currentTimestamp;
     property bool inFavorites;
+
+    Rectangle {
+        anchors.fill: parent
+        color: scheduleDelegate.highlighted ? Qt.darker(scheduleDelegate.roomColor) : scheduleDelegate.roomColor
+    }
 
     Text {
         id: startTimeLabel

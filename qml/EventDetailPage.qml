@@ -81,9 +81,9 @@ PagePL {
 
         Repeater {
             model: usersModel;
-            delegate: BackgroundItem {
+            delegate: Item {
                 id: usersDelegate
-                highlight_enabled: false;
+                width: parent.width
 
                 height: Math.max(avatarImage.height, nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight + 2*styler.themePaddingMedium) + bioLabel.paintedHeight + 3 * styler.themePaddingMedium
 

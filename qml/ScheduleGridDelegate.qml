@@ -2,8 +2,11 @@ import QtQuick 2.0
 import "functions.js" as F
 
 
-BackgroundItem {
+Rectangle {
     id: scheduleGridDelegate
+
+    property bool highlighted: mouse.pressed
+    signal clicked()
 
     property int startTime;
     property int endTime;
@@ -58,6 +61,12 @@ BackgroundItem {
         height: 24;
         anchors.margins: styler.themePaddingMedium;
         opacity: 0.5;
+    }
+
+    MouseArea {
+        id: mouse
+        anchors.fill: parent
+        onClicked: scheduleGridDelegate.clicked()
     }
 
 

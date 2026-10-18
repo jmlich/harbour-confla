@@ -1,6 +1,7 @@
 import QtQuick 2.0
+import "components/platform"
 
-BackgroundItem {
+ListItemPL {
 
     id: delegate
 
@@ -10,7 +11,7 @@ BackgroundItem {
     property url link;
     property alias img: avatarImage.source;
 
-    height: Math.max(rssDateLabel.paintedHeight + rssDescriptionLabel.paintedHeight + 2 * styler.themePaddingLarge, 2 * styler.themePaddingLarge + avatarImage.height)
+    contentHeight: Math.max(rssDateLabel.paintedHeight + rssDescriptionLabel.paintedHeight + 2 * styler.themePaddingLarge, 2 * styler.themePaddingLarge + avatarImage.height)
 
     Image {
         id: dummyImage;

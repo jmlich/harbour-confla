@@ -18,9 +18,9 @@ PageListPL {
     //% "List of conferences is empty"
     placeholderText: qsTrId("conference-list-page-list-is-empty")
 
-    delegate: BackgroundItem {
+    delegate: ListItemPL {
         id: delegate
-        height: Math.max(delegateText.paintedHeight, icon.height) + 2*styler.themePaddingMedium;
+        contentHeight: Math.max(delegateText.paintedHeight, icon.height) + 2*styler.themePaddingMedium;
 
         Image {
             id: icon;

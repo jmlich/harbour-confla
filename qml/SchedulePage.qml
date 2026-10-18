@@ -63,8 +63,8 @@ PageEmptyPL {
 
         Repeater {
             model: roomsModel;
-            delegate: BackgroundItem {
-                highlight_enabled: false;
+            delegate: Rectangle {
+                color: "transparent";
                 border.color: styler.themeSecondaryColor;
                 x: header_width + (index * slot_width);
                 y: 0;
@@ -75,7 +75,7 @@ PageEmptyPL {
                     anchors.centerIn: parent;
                     text: model.name;
                     font.pixelSize: styler.themeFontSizeExtraSmall;
-                    color: highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
+                    color: styler.themeSecondaryColor
                 }
             }
         }
@@ -83,8 +83,8 @@ PageEmptyPL {
 
         Repeater {
             model: timeModel;
-            delegate: BackgroundItem {
-                highlight_enabled: false;
+            delegate: Rectangle {
+                color: "transparent";
                 border.color: styler.themeSecondaryColor;
                 x: 0;
                 y: header_width + (index * slot_height);
@@ -94,7 +94,7 @@ PageEmptyPL {
                     anchors.centerIn: parent;
                     text: F.format_time(model.event_start);
                     font.pixelSize: styler.themeFontSizeExtraSmall;
-                    color: highlighted ? styler.themeHighlightColor : styler.themeSecondaryColor
+                    color: styler.themeSecondaryColor
                 }
             }
         }

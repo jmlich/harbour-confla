@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/AboutPage.qml</file>
-        <file>qml/BackgroundItem.qml</file>
         <file>qml/ConferenceDetailPage.qml</file>
         <file>qml/ConferenceListPage.qml</file>
         <file>qml/Data.qml</file>

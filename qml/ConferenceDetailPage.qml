@@ -23,10 +23,9 @@ PagePL {
 
         Repeater {
             model: aboutModel
-            delegate: BackgroundItem {
+            delegate: ListItemPL {
                 id: aboutDelegate
-                width: column.width;
-                height: aboutDelegateText.paintedHeight + styler.themePaddingLarge;
+                contentHeight: aboutDelegateText.paintedHeight + styler.themePaddingLarge;
                 Text {
                     id: aboutDelegateText
                     x: styler.themePaddingLarge
@@ -50,10 +49,9 @@ PagePL {
 
         Repeater {
             model: venueMapModel
-            delegate: BackgroundItem {
+            delegate: ListItemPL {
                 id: venueMapDelegate
-                width: column.width;
-                height: venueMapDelegateText.paintedHeight + styler.themePaddingLarge;
+                contentHeight: venueMapDelegateText.paintedHeight + styler.themePaddingLarge;
                 Text {
                     id: venueMapDelegateText
                     x: styler.themePaddingLarge
@@ -77,10 +75,9 @@ PagePL {
         }
 
 
-        BackgroundItem {
+        ListItemPL {
             id: mapDelegate
-            width: column.width
-            height: mapDelegateText.paintedHeight + styler.themePaddingLarge;
+            contentHeight: mapDelegateText.paintedHeight + styler.themePaddingLarge;
             visible: (mapPage.mapWidget.places.count > 0)
 
             Text {
@@ -111,9 +108,9 @@ PagePL {
 
         Repeater {
             model: daysModel
-            delegate: BackgroundItem {
+            delegate: ListItemPL {
                 id: daysDelegate
-                height: daysDelegateText.paintedHeight + styler.themePaddingLarge;
+                contentHeight: daysDelegateText.paintedHeight + styler.themePaddingLarge;
                 Text {
                     id: daysDelegateText
                     x: styler.themePaddingLarge
@@ -137,10 +134,9 @@ PagePL {
             }
         }
 
-        BackgroundItem {
+        ListItemPL {
             id: favoritesDelegate
-            width: column.width
-            height: favoritesDelegateText.paintedHeight + styler.themePaddingLarge;
+            contentHeight: favoritesDelegateText.paintedHeight + styler.themePaddingLarge;
             visible: (schedulePage.favoritesModel.length > 0)
             Text {
                 id: favoritesDelegateText
