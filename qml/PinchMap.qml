@@ -54,6 +54,7 @@ Rectangle {
 
     property bool needsUpdate: false;
     property alias places: placesModel;
+    property int selectedIndex: -1 // the place shown with the red pin
     property alias attribution: attributionText.text;
 
     signal mapItemClicked(string name, string description, url icon, double lat, double lon);
@@ -473,6 +474,7 @@ Rectangle {
     Repeater {
         model: placesModel;
         delegate: Item {
+            z: (index === selectedIndex) ? 1 : 0 // the selected pin is drawn above the others
             Image {
                 id: placesDelegate
                 source: model.icon;
@@ -485,7 +487,7 @@ Rectangle {
                 // the tip of the pin is at its bottom center
                 x: map.x + placesDelegate.t[0] - width/2
                 y: map.y + placesDelegate.t[1] - height
-                source: "./images/marker-icon.png"
+                source: (index === selectedIndex) ? "./images/marker-icon-red.png" : "./images/marker-icon.png"
                 visible:( placesDelegate.status !== Image.Ready)
             }
         }
@@ -603,6 +605,7 @@ Rectangle {
 
                         if (minDistance < maxClickDistance) {
                             item = places.get(minIndex);
+                            selectedIndex = minIndex;
                             mapItemClicked(item.name, item.description, item.icon, item.lat, item.lon)
                         }
                     }

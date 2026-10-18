@@ -89,6 +89,7 @@ PageEmptyPL {
                 }
             }
             onClicked: {
+                map.selectedIndex = index;
                 map.setCenterLatLon(model.lat, model.lon)
             }
         }
@@ -108,6 +109,7 @@ PageEmptyPL {
 
     function reload(d) {
         map.places.clear();
+        map.selectedIndex = -1;
         if (d.places !== undefined) {
             var places = d.places;
             for (var i = 0; i < places.length; i++) {

@@ -11,6 +11,7 @@
         <file>qml/images/ic_gps_fixed_white_48dp.png</file>
         <file>qml/images/ic_grid_on_white_48dp.png</file>
         <file>qml/images/ic_list_white_48dp.png</file>
+        <file>qml/images/marker-icon-red.png</file>
         <file>qml/images/marker-icon.png</file>
         <file>qml/images/noimage-cantload.png</file>
         <file>qml/images/noimage-disabled.png</file>
