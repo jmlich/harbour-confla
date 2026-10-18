@@ -122,7 +122,7 @@ Page {
                     "version": conf.version,
                 }
 
-                console.log("select conference: " + JSON.stringify(electObj, null, 2))
+                console.log("select conference: " + JSON.stringify(selectObj, null, 2))
                 selectConference(selectObj, true);
             }
         }

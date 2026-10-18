@@ -100,12 +100,17 @@ Item {
     }
 
     function init_conference(conf_data) {
-        data = JSON.parse(configGet(conf_data['url']+"/cache",'{}'));
-        updateUIConference(conf_data);
+        try {
+            data = JSON.parse(configGet(conf_data['url']+"/cache",'{}'));
+        } catch (e) {
+            console.log("Invalid cache for " + conf_data['url'] + ": " + e)
+            data = {}
+        }
+        updateUIConference(data.sessions !== undefined ? data : conf_data);
 
         var cache_version = configGet(conf_data['url']+"/version", 'INVALID_version');
 
-        if (conf_data['version'] !== cache_version) {
+        if (parseInt(conf_data['version'], 10) !== parseInt(cache_version, 10)) {
             console.error("init_conference " + conf_data['version'] + " -> " + cache_version)
 
             download_conference(conf_data);
@@ -411,7 +416,7 @@ Item {
                     updateUIConference(data);
                     // }
 
-                    configSet( conf_data['url']+"/cache", data )
+                    configSet( conf_data['url']+"/cache", JSON.stringify(data) )
                     if (data.version !== undefined) {
                         configSet(conf_data['url']+"/version", data.version)
                     }
