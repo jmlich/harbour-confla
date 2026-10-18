@@ -42,6 +42,8 @@ Item {
     }
 
     on_LockedChanged: stack.processCurrentItem()
+    // the initial page is pushed before ps is set, so its currentItemChanged is missed
+    onPsChanged: stack.processCurrentItem()
 
     function completeAnimation() {
     }
