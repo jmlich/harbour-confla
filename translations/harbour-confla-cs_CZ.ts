@@ -101,27 +101,27 @@
         <translation>Místa</translation>
     </message>
     <message id="image-status-ready">
-        <location filename="../qml/PinchMap.qml" line="298"/>
+        <location filename="../qml/PinchMap.qml" line="335"/>
         <source>Ready</source>
         <translation>Připraveno</translation>
     </message>
     <message id="image-status-not-set">
-        <location filename="../qml/PinchMap.qml" line="300"/>
+        <location filename="../qml/PinchMap.qml" line="337"/>
         <source>Not Set</source>
         <translation>Není nastaveno</translation>
     </message>
     <message id="image-status-error">
-        <location filename="../qml/PinchMap.qml" line="302"/>
+        <location filename="../qml/PinchMap.qml" line="339"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message id="image-status-loading">
-        <location filename="../qml/PinchMap.qml" line="304"/>
+        <location filename="../qml/PinchMap.qml" line="341"/>
         <source>Loading ...</source>
         <translation>Načítá se ...</translation>
     </message>
     <message id="image-status-unknown">
-        <location filename="../qml/PinchMap.qml" line="306"/>
+        <location filename="../qml/PinchMap.qml" line="343"/>
         <source>Unknown</source>
         <translation>Neznámo</translation>
     </message>

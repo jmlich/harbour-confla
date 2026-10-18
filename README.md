@@ -22,8 +22,4 @@ The code must stay compatible with Qt 5.6 used by Sailfish OS, so QML JavaScript
 
 ## Translations
 
-Texts use id-based translations (`qsTrId`). After changing texts, update the `.ts` files:
-
-```
-cmake --build . --target update_translations
-```
+Texts use id-based translations (`qsTrId`). After changing texts, run `./update-translations.sh`.

@@ -85,12 +85,6 @@ QT5_ADD_TRANSLATION(QM_FILES ${TS_FILES} OPTIONS -idbased)
 add_custom_target(ui_translations DEPENDS ${QM_FILES})
 add_dependencies(harbour-confla ui_translations)
 
-# run by hand: cmake --build . --target update_translations
-# QT5_CREATE_TRANSLATION would also run lrelease without -idbased
-add_custom_target(update_translations
-    COMMAND Qt5::lupdate -no-obsolete qml src -ts ${TS_FILES}
-    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
-
 install(FILES ${QM_FILES}
     DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/harbour-confla/translations")
 
