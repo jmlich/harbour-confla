@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import "functions.js" as F
-import cz.mlich 1.0
 
 
 Rectangle {
@@ -8,10 +7,10 @@ Rectangle {
 
     property int zoomLevel: 13;
     property int oldZoomLevel: 99
-    property int maxZoomLevel: 17;
+    property int maxZoomLevel: 19;
     property int minZoomLevel: 2;
     property int minZoomLevelShowGeocaches: 9;
-    property int tileSize: 512;
+    property int tileSize: 256;
     property int cornerTileX: 32;
     property int cornerTileY: 32;
     property int numTilesX: Math.ceil(width/tileSize) + 2;
@@ -49,8 +48,7 @@ Rectangle {
 
     property alias angle: rot.angle
 
-    property string remoteUrl: "http://a.tile.openstreetmap.org/%(zoom)d/%(x)d/%(y)d.png";
-    property string localUrl: ":/Maps/OSM/%(zoom)d/%(x)d/%(y)d.png"
+    property string remoteUrl: "https://tile.openstreetmap.org/%(zoom)d/%(x)d/%(y)d.png";
 
     property int earthRadius: 6371000
 
@@ -291,15 +289,7 @@ Rectangle {
         if (ty < 0 || ty > maxTileNo) {
             return "./images/noimage.png"
         }
-        var local = F.getMapTile(localUrl, tx, ty, zoomLevel);
-        var remote = F.getMapTile(remoteUrl, tx, ty, zoomLevel);
-
-        //        if (!file_reader.file_exists(local)) {
-        //            console.log ("wget "+remote + " --output-document=" +local )
-        //        }
-        //        return remote;
-        return (file_reader.file_exists_local(local)) ? ("qrc"+local) : remote
-//        return remote;
+        return F.getMapTile(remoteUrl, tx, ty, zoomLevel);
     }
 
     function imageStatusToString(status) {
@@ -436,7 +426,7 @@ Rectangle {
         y: map.y + t[1] - height + positionIndicator.width/2
         smooth: true
 
-        visible: showCurrentPosition
+        visible: showCurrentPosition && currentPositionValid
         transform: Rotation {
             origin.x: positionIndicator.width/2
             origin.y: positionIndicator.height - positionIndicator.width/2
@@ -634,8 +624,4 @@ Rectangle {
         text : "© OpenStreetMap contributors"
     }
 
-
-    FileReader {
-        id: file_reader;
-    }
 }

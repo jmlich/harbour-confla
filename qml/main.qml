@@ -62,7 +62,6 @@ ApplicationWindowPL {
         onShowOnMap: {
             mapPage.mapWidget.setZoomLevel(15)
             mapPage.mapWidget.setCenterLatLon(lat, lon);
-            mapPage.map_visible = true;
             app.pages.pop();
 
         }

@@ -9,7 +9,8 @@ Rectangle {
     property alias image: icon.source;
     radius: 3;
 
-    color: mouse.pressed ? Qt.rgba(styler.themePrimaryColor.r, styler.themePrimaryColor.g, styler.themePrimaryColor.b, 0.2) : "transparent";
+    // floats over the map or the schedule and the icons are white
+    color: mouse.pressed ? "#c0000000" : "#80000000";
     border.color: styler.themeSecondaryColor ;
     border.width: 1;
     signal clicked();

@@ -9,115 +9,94 @@ Page {
     property alias deviceLat: map.currentPositionLat
     property alias deviceLon: map.currentPositionLon
     property alias mapWidget: map;
-    property bool pageActive: true;
-    property bool map_visible: false;
 
     signal showDetail(string name, string description, url icon, double lat, double lon);
 
-    Flickable {
-        anchors.fill: parent;
-        contentHeight: map_visible ? page.height : listColumn.height
-
-        Column {
-            id: listColumn
-            visible: !map_visible;
-            width: page.width
-
-
-            Repeater {
-                model: map.places;
-                delegate: BackgroundItem {
-                    id: delegate;
-                    width: page.width
-                    height: Math.max(placesDelegate.height, placesDelegateTitle.paintedHeight)  + styler.themePaddingSmall
-                    Image {
-                        id: placesDelegate
-                        anchors.left: parent.left;
-                        anchors.verticalCenter: parent.verticalCenter;
-                        anchors.margins: styler.themePaddingSmall;
-                        source: model.icon;
-                        smooth: true
-                        fillMode: Image.PreserveAspectFit
-                        width: 0.5 * dpix;
-                        height: 0.5 * dpiy;
-
-
-                    }
-                    Image {
-                        anchors.centerIn: placesDelegate;
-                        source: "qrc:/images/marker-icon.png"
-                        visible:( placesDelegate.status !== Image.Ready)
-                        width: placesDelegate.width;
-                        height: placesDelegate.height;
-                        fillMode: Image.PreserveAspectFit
-                    }
-
-
-                    Text {
-                        id: placesDelegateTitle
-                        anchors.left: placesDelegate.right
-                        anchors.right: parent.right;
-                        anchors.top: parent.top;
-                        anchors.bottom: parent.bottom;
-                        verticalAlignment: Text.AlignVCenter;
-                        color: delegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                        font.pixelSize: styler.themeFontSizeMedium
-
-                        wrapMode: Text.Wrap;
-                        text: model.name;
-                    }
-                    onClicked: {
-                        showDetail(model.name, model.description, model.icon, model.lat, model.lon);
-                        map.setCenterLatLon(lat, lon)
-                    }
-                }
-            }
-        }
-
-
-        PinchMap {
-
-            id: map
-            anchors.fill: parent;
-            clip: true;
-            visible: map_visible;
-            pageActive: map_visible && page.pageActive;
-            //                        && (page.status !== PageStatus.Inactive)
-
-            onMapItemClicked: {
-
-                showDetail(name, description, icon, lat, lon);
-
-            }
-
-        }
-    }
-
-
-    Button {
-        id: switchToListBtn
-        image: map_visible ? "./images/ic_list_white_48dp.png" : "./images/ic_map_white_48dp.png"
-        anchors.bottom: parent.bottom;
+    PinchMap {
+        id: map
+        anchors.top: parent.top;
+        anchors.left: parent.left;
         anchors.right: parent.right;
-        onClicked: {
-            map_visible = !map_visible;
+        height: parent.height / 2;
+        clip: true;
+        pageActive: page.visible;
+
+        onMapItemClicked: {
+            showDetail(name, description, icon, lat, lon);
         }
     }
 
     Button {
-        visible: map_visible;
+        visible: map.currentPositionValid;
         image: "./images/ic_gps_fixed_white_48dp.png"
-        anchors.right: switchToListBtn.left;
-        anchors.bottom: parent.bottom
+        anchors.right: map.right;
+        anchors.bottom: map.bottom
         onClicked: {
             map.setCenterLatLon(map.currentPositionLat, map.currentPositionLon);
+        }
+    }
+
+    ListView {
+        anchors.top: map.bottom;
+        anchors.left: parent.left;
+        anchors.right: parent.right;
+        anchors.bottom: parent.bottom;
+        clip: true;
+        model: map.places;
+        delegate: BackgroundItem {
+            id: delegate;
+            height: Math.max(placesDelegate.height, placesDelegateColumn.height) + 2 * styler.themePaddingSmall
+            Image {
+                id: placesDelegate
+                anchors.left: parent.left;
+                anchors.verticalCenter: parent.verticalCenter;
+                anchors.margins: styler.themePaddingSmall;
+                source: model.icon;
+                smooth: true
+                fillMode: Image.PreserveAspectFit
+                width: 0.5 * dpix;
+                height: 0.5 * dpiy;
+            }
+            Image {
+                anchors.centerIn: placesDelegate;
+                source: "./images/marker-icon.png"
+                visible: (placesDelegate.status !== Image.Ready)
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Column {
+                id: placesDelegateColumn
+                anchors.left: placesDelegate.right
+                anchors.right: parent.right;
+                anchors.verticalCenter: parent.verticalCenter;
+                anchors.leftMargin: styler.themePaddingSmall;
+
+                Text {
+                    width: parent.width
+                    color: delegate.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                    font.pixelSize: styler.themeFontSizeMedium
+                    wrapMode: Text.Wrap;
+                    text: model.name;
+                }
+                Text {
+                    width: parent.width
+                    visible: text !== ""
+                    color: styler.themeSecondaryColor
+                    font.pixelSize: styler.themeFontSizeSmall
+                    wrapMode: Text.Wrap;
+                    text: model.description;
+                }
+            }
+            onClicked: {
+                map.setCenterLatLon(model.lat, model.lon)
+            }
         }
     }
 
     PositionSource {
         id: positionSource
         updateInterval: 1000
-        active: map_visible;
+        active: page.visible;
         onPositionChanged: {
             var coord = position.coordinate;
             map.currentPositionLat = coord.latitude;
@@ -150,6 +129,17 @@ Page {
                     "lon": room.latlon[1],
                 });
             }
+        }
+
+        if (map.places.count > 0) {
+            var lat = 0;
+            var lon = 0;
+            for (var i = 0; i < map.places.count; i++) {
+                lat += map.places.get(i).lat;
+                lon += map.places.get(i).lon;
+            }
+            map.setZoomLevel(17);
+            map.setCenterLatLon(lat / map.places.count, lon / map.places.count);
         }
     }
 
