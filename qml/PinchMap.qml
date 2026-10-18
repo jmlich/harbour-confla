@@ -446,8 +446,9 @@ Rectangle {
                 smooth: true
             }
             Image {
-                x: placesDelegate.x;
-                y: placesDelegate.y
+                // the tip of the pin is at its bottom center
+                x: map.x + placesDelegate.t[0] - width/2
+                y: map.y + placesDelegate.t[1] - height
                 source: "./images/marker-icon.png"
                 visible:( placesDelegate.status !== Image.Ready)
             }
