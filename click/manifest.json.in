@@ -9,7 +9,7 @@
             "desktop":  "harbour-confla.desktop"
         }
     },
-    "version": "0.3.0-@CLICK_FRAMEWORK_BASE@",
+    "version": "0.1.1",
     "maintainer": "Jozef Mlich <jmlich83@gmail.com>",
     "framework" : "@CLICK_FRAMEWORK@"
 }
