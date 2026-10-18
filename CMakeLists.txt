@@ -115,24 +115,20 @@ install(FILES "harbour-confla.desktop"
     DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
 
 
-if(FLAVOR STREQUAL "uuitk")
+install(FILES "icons/108x108/harbour-confla.png"
+    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/108x108/apps")
 
-#install(FILES "icons/108x108/harbour-confla.png"
-#    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/108x108/apps")
+install(FILES "icons/172x172/harbour-confla.png"
+    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/172x172/apps")
 
-#install(FILES "icons/172x172/harbour-confla.png"
-#    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/172x172/apps")
+install(FILES "icons/128x128/harbour-confla.png"
+    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/128x128/apps")
 
-#install(FILES "icons/128x128/harbour-confla.png"
-#    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/128x128/apps")
+install(FILES "icons/86x86/harbour-confla.png"
+    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/86x86/apps")
 
-#install(FILES "icons/86x86/harbour-confla.png"
-#    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/86x86/apps")
-
-#install(FILES "icons/scalable/harbour-confla.svg"
-#    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/apps")
-
-endif()
+install(FILES "icons/scalable/harbour-confla.svg"
+    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/apps")
 
 #install(FILES "harbour-confla.appdata.xml"
 #    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")

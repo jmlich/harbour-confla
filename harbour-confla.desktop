@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Confla
+Comment=Conference schedules
+Icon=harbour-confla
+Exec=harbour-confla
+Categories=Office;
