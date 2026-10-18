@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     app.setOrganizationName("harbour-confla");
     app.setApplicationName("harbour-confla");
+    app.setApplicationVersion(GIT_VERSION);
+    qDebug() << "Starting build" << GIT_VERSION << "Qt" << qVersion();
 
 
     // QString tr_path(TRANSLATION_FOLDER);

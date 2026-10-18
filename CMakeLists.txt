@@ -17,6 +17,16 @@ include(GNUInstallDirs)
 include(FeatureSummary)
 
 find_package(Qt5 COMPONENTS Core Gui Quick Sql DBus LinguistTools REQUIRED)
+find_package(Git QUIET REQUIRED)
+
+execute_process(COMMAND
+  "${GIT_EXECUTABLE}" describe --dirty --broken --always --tags
+  WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+  OUTPUT_VARIABLE GIT_VERSION
+  ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+add_definitions( -DGIT_VERSION="${GIT_VERSION}" )
 
 if(NOT DEFINED FLAVOR)
     message(FATAL_ERROR "Please specify the platform using -DFLAVOR=platform as a CMake option. Supported platforms: kirigami, silica, qtcontrols, uuitk.")

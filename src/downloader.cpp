@@ -15,7 +15,7 @@
 
 
 Downloader::Downloader(QObject *parent) : QObject(parent) {
-    m_userAgent = "harbour-confla/0.2 Qt/" QT_VERSION_STR;
+    m_userAgent = QString("harbour-confla/%1 Qt/%2").arg(GIT_VERSION).arg(qVersion());
     m_cancel = false;
 }
 
