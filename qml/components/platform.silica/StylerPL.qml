@@ -99,6 +99,10 @@ QtObject {
     property string customIconPrefix: "qrc:///qml/custom-icons/"
     property string customIconSuffix: ".png"
 
+    property string iconGridView: "qrc:///qml/images/ic_grid_on_white_48dp.png"
+    property string iconListView: "qrc:///qml/images/ic_list_white_48dp.png"
+    property string iconMyPosition: "qrc:///qml/images/ic_gps_fixed_white_48dp.png"
+
     // item sizes
     property real themeItemSizeLarge: Theme.itemSizeLarge
     property real themeItemSizeSmall: Theme.itemSizeSmall

@@ -196,8 +196,8 @@ PagePL {
             textFormat: Text.RichText;
 
         }
-        LineButton {
-            image: inFavorites ? "./images/ic_favorite_white_48dp.png" : "./images/ic_favorite_grey600_48dp.png";
+        ButtonPL {
+            anchors.horizontalCenter: parent.horizontalCenter
             text: inFavorites ?
                       //% "Remove from favorites"
                       qsTrId("remove-from-favorites")
@@ -215,9 +215,9 @@ PagePL {
             }
         }
 
-        LineButton {
+        ButtonPL {
+            anchors.horizontalCenter: parent.horizontalCenter
             visible: (conferenceDetailPage.feedback_url !== '')
-            image: "./images/ic_stars_white_48dp.png";
 
             //% "Leave your feedback here"
             text: qsTrId("open-feedback-form")

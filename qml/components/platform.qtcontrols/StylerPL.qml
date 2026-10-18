@@ -77,6 +77,10 @@ QtObject {
     property string iconStop: "media-playback-stop-symbolic"
     property string iconWebLink: "web-browser-symbolic"
 
+    property string iconGridView: "view-grid-symbolic"
+    property string iconListView: "view-list-symbolic"
+    property string iconMyPosition: "find-location-symbolic"
+
     // item sizes
     property real themeItemSizeLarge: themeFontSizeLarge * 3
     property real themeItemSizeSmall: themeFontSizeMedium * 3

@@ -98,6 +98,10 @@ QtObject {
     property string customIconPrefix: "qrc:///qml/custom-icons/"
     property string customIconSuffix: ".png"
 
+    property string iconGridView: "view-grid-symbolic"
+    property string iconListView: "view-list-symbolic"
+    property string iconMyPosition: "find-location-symbolic"
+
     // item sizes
     property real themeItemSizeLarge: themeItemSizeSmall * 2
     property real themeItemSizeSmall: Kirigami.Units.gridUnit * 2.5

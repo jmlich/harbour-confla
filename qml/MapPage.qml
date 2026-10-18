@@ -27,9 +27,9 @@ PageEmptyPL {
         }
     }
 
-    Button {
+    IconButtonPL {
         visible: map.currentPositionValid;
-        image: "./images/ic_gps_fixed_white_48dp.png"
+        iconName: styler.iconMyPosition
         anchors.right: map.right;
         anchors.bottom: map.bottom
         onClicked: {

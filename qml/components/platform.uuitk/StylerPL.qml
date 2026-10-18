@@ -108,6 +108,10 @@ QtObject {
     property string iconLocation: "image://theme/location"
     property string iconClock: "image://theme/clock"
 
+    property string iconGridView: "image://theme/view-grid-symbolic"
+    property string iconListView: "image://theme/view-list-symbolic"
+    property string iconMyPosition: "image://theme/location"
+
     // item sizes
     property real themeItemSizeLarge: themeFontSizeLarge * 3
     property real themeItemSizeSmall: themeFontSizeMedium * 3

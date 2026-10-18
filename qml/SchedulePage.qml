@@ -206,8 +206,8 @@ PageEmptyPL {
         //        VerticalScrollDecorator {}
     }
 
-    Button {
-        image: listView.visible ? "./images/ic_grid_on_white_48dp.png": "./images/ic_list_white_48dp.png"
+    IconButtonPL {
+        iconName: listView.visible ? styler.iconGridView : styler.iconListView
         anchors.bottom: parent.bottom;
         anchors.right: parent.right;
         visible: !filter_favorites;

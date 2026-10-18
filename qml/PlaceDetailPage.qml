@@ -92,15 +92,13 @@ PagePL {
 
         }
 
-        LineButton {
+        ButtonPL {
             id: showOnMapButton
             anchors.topMargin: styler.themePaddingLarge
             anchors.top: description_label.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.horizontalCenter: parent.horizontalCenter
             //% "Show on Map"
             text: qsTrId("show-on-map")
-            image: "./images/ic_map_white_48dp.png"
 
             onClicked: {
                 showOnMap();
@@ -108,13 +106,11 @@ PagePL {
 
         }
 
-        LineButton {
+        ButtonPL {
             id: navigateToButton
             anchors.topMargin: styler.themePaddingLarge
             anchors.top: showOnMapButton.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            image: "./images/ic_directions_white_48dp.png"
+            anchors.horizontalCenter: parent.horizontalCenter
             //% "Navigate to"
             text: qsTrId("navigate-to")
             onClicked: {
