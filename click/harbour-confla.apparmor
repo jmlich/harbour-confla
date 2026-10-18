@@ -1,0 +1,7 @@
+{
+    "policy_groups": [
+        "networking",
+        "location"
+    ],
+    "policy_version": "@APPARMOR_POLICY@"
+}

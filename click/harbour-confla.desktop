@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Icon=share/icons/hicolor/172x172/apps/harbour-confla.png
+Exec=./bin/harbour-confla
+Name=Confla
+X-Ubuntu-Touch=true
+X-Ubuntu-Splash-Color=#F5F5F5

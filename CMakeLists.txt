@@ -38,6 +38,10 @@ elseif(FLAVOR STREQUAL "qtcontrols")
     add_definitions(-Dflavor_qtcontrols)
 elseif(FLAVOR STREQUAL "uuitk")
     add_definitions(-DUUITK_EDITION)
+    # Clickable installs with prefix / and DESTDIR, where GNUInstallDirs would use usr/bin and usr/share;
+    # the click desktop file expects bin/ and share/ in the click root
+    set(CMAKE_INSTALL_BINDIR bin)
+    set(CMAKE_INSTALL_DATAROOTDIR share)
     add_subdirectory(click)
 else()
     message(FATAL_ERROR "Unsupported platform '${FLAVOR}'. Supported platforms: kirigami, silica, qtcontrols, uuitk.")

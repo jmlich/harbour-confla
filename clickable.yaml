@@ -1,0 +1,10 @@
+clickable_minimum_required: 8.6.0
+
+kill: harbour-confla
+
+builder: cmake
+build_args:
+- -DFLAVOR=uuitk
+
+dependencies_target:
+- qtpositioning5-dev

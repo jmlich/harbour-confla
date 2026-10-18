@@ -18,6 +18,8 @@ cmake -DFLAVOR=kirigami ..
 make
 ```
 
+For Ubuntu Touch, run `clickable build`.
+
 The code must stay compatible with Qt 5.6 used by Sailfish OS, so QML JavaScript is limited to ES5.
 
 ## Translations
