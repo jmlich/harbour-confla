@@ -25,19 +25,7 @@ Rectangle {
 
 
     Text {
-        id: roomColorLabel
         anchors.left: parent.left;
-        anchors.top: parent.top;
-        anchors.margins: styler.themePaddingMedium
-        font.pixelSize: styler.themeFontSizeExtraSmall;
-        color: scheduleGridDelegate.textColor
-        //               font.family: Theme.fontFamilyHeading
-        font.weight: Font.Bold
-        text: "|"
-    }
-
-    Text {
-        anchors.left: roomColorLabel.left;
         anchors.top: parent.top;
         anchors.right: parent.right;
         anchors.bottom: parent.bottom;
