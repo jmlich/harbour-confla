@@ -85,7 +85,7 @@ PagePL {
                 id: usersDelegate
                 highlight_enabled: false;
 
-                height: Math.max(avatarImage.height, nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight + 2*styler.themePaddingMedium) + 2 * styler.themePaddingMedium
+                height: Math.max(avatarImage.height, nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight + 2*styler.themePaddingMedium) + bioLabel.paintedHeight + 3 * styler.themePaddingMedium
 
                 Image {
                     id: dummyImage;
@@ -105,6 +105,10 @@ PagePL {
                     source: model.avatar;
                     width: 1.5 * dpix;
                     height: 1.5 * dpiy;
+                    sourceSize.width: width
+                    sourceSize.height: height
+                    fillMode: Image.PreserveAspectCrop
+                    asynchronous: true
                     anchors.margins: styler.themePaddingMedium;
 
                 }
@@ -146,6 +150,18 @@ PagePL {
                     font.pixelSize: styler.themeFontSizeSmall
                     wrapMode: Text.WordWrap
 
+                }
+                Text {
+                    id: bioLabel
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: (avatarImage.height > nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight)
+                                 ? avatarImage.bottom : positionLabel.bottom
+                    anchors.margins: styler.themePaddingMedium;
+                    text: model.bio !== undefined ? model.bio : ""
+                    color: styler.themeSecondaryColor
+                    font.pixelSize: styler.themeFontSizeSmall
+                    wrapMode: Text.WordWrap
                 }
             }
         }
