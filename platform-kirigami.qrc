@@ -15,6 +15,7 @@
         <file alias="./qml/components/platform/ExpandingSectionGroupPL.qml">./qml/components/platform.kirigami/ExpandingSectionGroupPL.qml</file>
         <file alias="./qml/components/platform/ExpandingSectionPL.qml">./qml/components/platform.kirigami/ExpandingSectionPL.qml</file>
         <file alias="./qml/components/platform/FileSelectorPL.qml">./qml/components/platform.kirigami/FileSelectorPL.qml</file>
+        <file alias="./qml/components/platform/FlickablePL.qml">./qml/components/platform.kirigami/FlickablePL.qml</file>
         <file alias="./qml/components/platform/FormLayoutPL.qml">./qml/components/platform.kirigami/FormLayoutPL.qml</file>
         <file alias="./qml/components/platform/IconButtonPL.qml">./qml/components/platform.kirigami/IconButtonPL.qml</file>
         <file alias="./qml/components/platform/IconPL.qml">./qml/components/platform.kirigami/IconPL.qml</file>
@@ -45,8 +46,8 @@
         <file alias="./qml/components/platform/ValueButtonPL.qml">./qml/components/platform.kirigami/ValueButtonPL.qml</file>
         <file>./qml/components/DateNavigation.qml</file>
         <file>./qml/components/DeviceListModel.qml</file>
-        <file>./qml/components/DraggableItemDropArea.qml</file>
         <file>./qml/components/DraggableItem.qml</file>
+        <file>./qml/components/DraggableItemDropArea.qml</file>
         <file>./qml/components/PercentCircle.qml</file>
         <file>./qml/components/TruncationModes.qml</file>
     </qresource>

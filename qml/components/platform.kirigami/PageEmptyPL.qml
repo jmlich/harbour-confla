@@ -35,10 +35,15 @@ Kirigami.Page {
     default property alias content: itemCont.data
     readonly property bool empty: true
     property bool          currentPage: app.pages.currentItem === page
+    property var           pageMenu
 
     signal pageStatusActivating
     signal pageStatusActive
     signal pageStatusInactive
+
+    actions {
+        contextualActions: page.pageMenu ? page.pageMenu.items : []
+    }
 
     Item {
         id: itemCont

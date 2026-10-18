@@ -15,6 +15,7 @@
         <file alias="./qml/components/platform/ExpandingSectionGroupPL.qml">./qml/components/platform.uuitk/ExpandingSectionGroupPL.qml</file>
         <file alias="./qml/components/platform/ExpandingSectionPL.qml">./qml/components/platform.uuitk/ExpandingSectionPL.qml</file>
         <file alias="./qml/components/platform/FileSelectorPL.qml">./qml/components/platform.uuitk/FileSelectorPL.qml</file>
+        <file alias="./qml/components/platform/FlickablePL.qml">./qml/components/platform.uuitk/FlickablePL.qml</file>
         <file alias="./qml/components/platform/FormLayoutPL.qml">./qml/components/platform.uuitk/FormLayoutPL.qml</file>
         <file alias="./qml/components/platform/HeaderBarImpl.qml">./qml/components/platform.uuitk/HeaderBarImpl.qml</file>
         <file alias="./qml/components/platform/IconButtonPL.qml">./qml/components/platform.uuitk/IconButtonPL.qml</file>
@@ -46,8 +47,8 @@
         <file alias="./qml/components/platform/ValueButtonPL.qml">./qml/components/platform.uuitk/ValueButtonPL.qml</file>
         <file>./qml/components/DateNavigation.qml</file>
         <file>./qml/components/DeviceListModel.qml</file>
-        <file>./qml/components/DraggableItemDropArea.qml</file>
         <file>./qml/components/DraggableItem.qml</file>
+        <file>./qml/components/DraggableItemDropArea.qml</file>
         <file>./qml/components/PercentCircle.qml</file>
         <file>./qml/components/TruncationModes.qml</file>
     </qresource>

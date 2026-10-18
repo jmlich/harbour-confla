@@ -5,6 +5,15 @@
         <file>qml/ConferenceListPage.qml</file>
         <file>qml/Data.qml</file>
         <file>qml/EventDetailPage.qml</file>
+        <file>qml/MapPage.qml</file>
+        <file>qml/PhotoDetailPage.qml</file>
+        <file>qml/PinchMap.qml</file>
+        <file>qml/PlaceDetailPage.qml</file>
+        <file>qml/RssItemDelegate.qml</file>
+        <file>qml/ScheduleDelegate.qml</file>
+        <file>qml/ScheduleGridDelegate.qml</file>
+        <file>qml/SchedulePage.qml</file>
+        <file>qml/SectionHeader.qml</file>
         <file>qml/functions.js</file>
         <file>qml/images/blank_boy.png</file>
         <file>qml/images/ic_favorite_white_48dp.png</file>
@@ -17,18 +26,9 @@
         <file>qml/images/noimage-disabled.png</file>
         <file>qml/images/noimage-loading.png</file>
         <file>qml/images/noimage.png</file>
-        <file>qml/images/position-circle.png</file>
         <file>qml/images/position-circle-red.png</file>
+        <file>qml/images/position-circle.png</file>
         <file>qml/images/target-indicator-cross.png</file>
         <file>qml/main.qml</file>
-        <file>qml/MapPage.qml</file>
-        <file>qml/PhotoDetailPage.qml</file>
-        <file>qml/PinchMap.qml</file>
-        <file>qml/PlaceDetailPage.qml</file>
-        <file>qml/RssItemDelegate.qml</file>
-        <file>qml/ScheduleDelegate.qml</file>
-        <file>qml/ScheduleGridDelegate.qml</file>
-        <file>qml/SchedulePage.qml</file>
-        <file>qml/SectionHeader.qml</file>
     </qresource>
 </RCC>

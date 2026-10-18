@@ -25,6 +25,7 @@ Page {
 
     default property alias content: itemCont.data
     readonly property bool empty: true
+    property alias         pageMenu: menuLoader.sourceComponent
     property string        title
 
     signal pageStatusActivating
@@ -34,6 +35,20 @@ Page {
     Item {
         id: itemCont
         anchors.fill: page
+    }
+
+    // A pull down menu works only inside a Silica flickable, so put it into the visible one
+    Loader {
+        id: menuLoader
+        active: sourceComponent && parent !== page
+        parent: {
+            for (var i = 0; i < itemCont.children.length; i++) {
+                var child = itemCont.children[i];
+                if (child.visible && child.pullDownMenu !== undefined) return child;
+            }
+            return page;
+        }
+        width: parent.width
     }
 
     onStatusChanged: {

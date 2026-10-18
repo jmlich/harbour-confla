@@ -16,6 +16,20 @@ PageEmptyPL {
     property string dayName;
     property int currentTime: Math.floor(new Date().getTime()/1000)
 
+    pageMenu: PageMenuPL {
+        visible: !filter_favorites
+        PageMenuItemPL {
+            iconSource: listView.visible ? styler.iconGridView : styler.iconListView
+            text: listView.visible ?
+                      //% "Show as grid"
+                      qsTrId("schedule-page-menu-grid") :
+                      //% "Show as list"
+                      qsTrId("schedule-page-menu-list")
+            visible: !filter_favorites
+            onClicked: listView.visible = !listView.visible
+        }
+    }
+
     onFilter_startChanged: {
         var date = new Date(filter_start* 1000);
         dayName = F.dayOfWeek(date.getDay())
@@ -51,7 +65,7 @@ PageEmptyPL {
         id: timeModel;
     }
 
-    Flickable {
+    FlickablePL {
         visible: !listView.visible;
         anchors.fill: parent;
         clip: true;
@@ -148,7 +162,7 @@ PageEmptyPL {
         }
     }
 
-    ListView {
+    ListViewPL {
         visible: false;
         id: listView
         clip: true;
@@ -206,17 +220,6 @@ PageEmptyPL {
         }
         //        VerticalScrollDecorator {}
     }
-
-    IconButtonPL {
-        iconName: listView.visible ? styler.iconGridView : styler.iconListView
-        anchors.bottom: parent.bottom;
-        anchors.right: parent.right;
-        visible: !filter_favorites;
-        onClicked: {
-            listView.visible = !listView.visible;
-        }
-    }
-
 
     ListModel {
         id: eventModel

@@ -27,6 +27,7 @@ Item {
     default property alias content: itemCont.data
     readonly property bool empty: true
     property int           status: StackView.status
+    property var           pageMenu
     property string        title
 
     signal pageStatusActivating
@@ -42,9 +43,23 @@ Item {
 
     Item {
         id: itemCont
-        anchors.bottom: parent.bottom
+        anchors.bottom: menuCont.top
         anchors.top: header.bottom
         width: parent.width
+    }
+
+    Item {
+        id: menuCont
+        anchors.bottom: parent.bottom
+        height: childrenRect.height
+        width: parent.width
+    }
+
+    onPageMenuChanged: {
+        if (pageMenu) {
+            pageMenu.parent = menuCont;
+            pageMenu.width = Qt.binding(function () { return menuCont.width; });
+        }
     }
 
     onStatusChanged: {

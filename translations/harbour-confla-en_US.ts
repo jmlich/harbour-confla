@@ -144,6 +144,16 @@
         <source>Favorites</source>
         <translation>Favorites</translation>
     </message>
+    <message id="schedule-page-menu-grid">
+        <location filename="../qml/SchedulePage.qml" line="25"/>
+        <source>Show as grid</source>
+        <translation>Show as grid</translation>
+    </message>
+    <message id="schedule-page-menu-list">
+        <location filename="../qml/SchedulePage.qml" line="27"/>
+        <source>Show as list</source>
+        <translation>Show as list</translation>
+    </message>
     <message id="event-detail-title">
         <location filename="../qml/EventDetailPage.qml" line="8"/>
         <source>Talk</source>
