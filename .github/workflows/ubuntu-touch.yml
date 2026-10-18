@@ -1,0 +1,24 @@
+name: Ubuntu Touch build
+on: [push,pull_request]
+jobs:
+  ubuntu-touch:
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [armhf, arm64, amd64]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 1
+    - name: build package
+      uses: tuxecure/clickable@v2
+      with:
+        image: clickable/ci-ut24.04-1.x-${{ matrix.arch }}
+        run: clickable build --all --skip-review --verbose
+    - name: Upload .click package
+      uses: actions/upload-artifact@v4
+      with:
+        name: click-${{ matrix.arch }}
+        path: build/*/app/*.click

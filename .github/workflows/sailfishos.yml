@@ -1,0 +1,34 @@
+name: SailfishOS Build
+
+on: [push, pull_request]
+
+env:
+  OS_VERSION: 4.6.0.13
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    name: Build App
+    strategy:
+      matrix:
+        arch: ['armv7hl', 'aarch64', 'i486']
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Prepare
+      run: docker pull coderus/sailfishos-platform-sdk:$OS_VERSION && mkdir output
+
+    - name: Build ${{ matrix.arch }}
+      run: docker run --rm --privileged -v $PWD:/share coderus/sailfishos-platform-sdk:$OS_VERSION /bin/bash -c "
+            mkdir -p build ;
+            cd build ;
+            cp -r /share/* . ;
+            mb2 -t SailfishOS-$OS_VERSION-${{ matrix.arch }} build ;
+            sudo cp -r RPMS/*.rpm /share/output"
+
+    - name: Upload RPM (${{ matrix.arch }})
+      uses: actions/upload-artifact@v4
+      with:
+        name: rpm-${{ matrix.arch }}
+        path: output
