@@ -115,7 +115,7 @@ Item {
 
         var cache_version = configGet(conf_data['url']+"/version", 'INVALID_version');
 
-        if (parseInt(conf_data['version'], 10) !== parseInt(cache_version, 10)) {
+        if (cached.sessions === undefined || parseInt(conf_data['version'], 10) !== parseInt(cache_version, 10)) {
             console.error("init_conference " + conf_data['version'] + " -> " + cache_version)
 
             download_conference(conf_data);
