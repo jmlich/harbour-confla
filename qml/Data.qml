@@ -100,13 +100,18 @@ Item {
     }
 
     function init_conference(conf_data) {
+        var cached = {}
         try {
-            data = JSON.parse(configGet(conf_data['url']+"/cache",'{}'));
+            cached = JSON.parse(configGet(conf_data['url']+"/cache",'{}'));
         } catch (e) {
             console.log("Invalid cache for " + conf_data['url'] + ": " + e)
-            data = {}
         }
-        updateUIConference(data.sessions !== undefined ? data : conf_data);
+        // the menu entry is newer than the cache, e.g. room locations
+        for (var key in conf_data) {
+            cached[key] = conf_data[key]
+        }
+        data = cached
+        updateUIConference(data);
 
         var cache_version = configGet(conf_data['url']+"/version", 'INVALID_version');
 

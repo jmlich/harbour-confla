@@ -127,14 +127,47 @@ Page {
     }
 
     function reload(d) {
+        map.places.clear();
         if (d.places !== undefined) {
-            map.places.clear();
             var places = d.places;
             for (var i = 0; i < places.length; i++) {
                 var item = places[i];
                 map.places.append(item);
             }
         }
+
+        if (d.rooms !== undefined) {
+            for (var i = 0; i < d.rooms.length; i++) {
+                var room = d.rooms[i];
+                if (room.latlon === undefined) {
+                    continue;
+                }
+                map.places.append({
+                    "name": room.name.replace(/\.\*$/, ""),
+                    "description": roomsMatching(room.name, d.sessions),
+                    "icon": "",
+                    "lat": room.latlon[0],
+                    "lon": room.latlon[1],
+                });
+            }
+        }
+    }
+
+    // room names in menu.json are regular expressions, list the schedule rooms they cover
+    function roomsMatching(pattern, sessions) {
+        if (sessions === undefined) {
+            return "";
+        }
+        var re = new RegExp("^(" + pattern + ")$");
+        var names = [];
+        for (var i = 0; i < sessions.length; i++) {
+            var name = sessions[i].room;
+            if (re.test(name) && names.indexOf(name) === -1) {
+                names.push(name);
+            }
+        }
+        names.sort();
+        return names.join(", ");
     }
 
 

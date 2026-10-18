@@ -54,6 +54,7 @@ Page {
                     "icon": model.icon,
                     "title": model.title,
                     "version": model.version,
+                    "rooms": JSON.parse(model.rooms),
                 }
                 console.log(JSON.stringify(selectedObj, null, 2))
 
@@ -79,6 +80,17 @@ Page {
 
     }
 
+
+    // Giggity keeps room locations in metadata.rooms, some menu entries have them at the top level
+    function conferenceRooms(conf) {
+        if (conf.metadata !== undefined && conf.metadata.rooms !== undefined) {
+            return conf.metadata.rooms
+        }
+        if (conf.rooms !== undefined) {
+            return conf.rooms
+        }
+        return []
+    }
 
     function reload(d) {
         conferencesListModel.clear();
@@ -109,6 +121,8 @@ Page {
                     "icon": (conf.metadata !== undefined && conf.metadata.icon !== undefined) ? conf.metadata.icon: "",
                     "title": conf.title,
                     "version": conf.version,
+                    // ListModel would turn an array into a nested model, keep it as JSON
+                    "rooms": JSON.stringify(conferenceRooms(conf)),
                 }
 
                 conferencesListModel.append(selectObj)
@@ -121,6 +135,7 @@ Page {
                     "icon": (conf.metadata !== undefined && conf.metadata.icon !== undefined) ? conf.metadata.icon: "",
                     "title": conf.title,
                     "version": conf.version,
+                    "rooms": conferenceRooms(conf),
                 }
 
                 console.log("select conference: " + JSON.stringify(selectObj, null, 2))
