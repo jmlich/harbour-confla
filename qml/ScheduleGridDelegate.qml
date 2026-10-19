@@ -30,7 +30,7 @@ Rectangle {
         anchors.right: parent.right;
         anchors.bottom: parent.bottom;
         anchors.margins: styler.themePaddingMedium
-        font.pixelSize: styler.themeFontSizeSmall;
+        font.pixelSize: styler.themeFontSizeMedium;
 
         text: (speakers_str !== "") ? (speakers_str + ": " + title) : title
         color: scheduleGridDelegate.textColor
