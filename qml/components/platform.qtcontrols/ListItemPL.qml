@@ -36,6 +36,7 @@ Item {
     property real contentHeight
     property bool highlighted: false
     property var  menu
+    property bool emphasized: false
 
     signal clicked
 
