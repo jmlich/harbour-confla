@@ -40,15 +40,15 @@ Page {
     signal pageStatusActive
     signal pageStatusInactive
 
-    ScrollView {
-        id: flickable        
+    // ScrollView does not flick with a mouse
+    Flickable {
+        id: flickable
         anchors.bottomMargin: styler.themePaddingLarge
         anchors.fill: parent
         anchors.topMargin: styler.themePaddingLarge
         contentHeight: itemCont.height
         contentWidth: page.width
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-        ScrollBar.vertical.policy: ScrollBar.AsNeeded
+        ScrollBar.vertical: ScrollBar {}
 
         Item {
             id: itemCont
