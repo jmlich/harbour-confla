@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.3
 import Qt.labs.settings 1.0
 import QtSystemInfo 5.5
 import "."
@@ -27,6 +27,12 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
+
+    // Qt Quick Controls do not follow the Lomiri theme
+    palette.window: styler.blockBg
+    palette.windowText: styler.themeHighlightColor
+    palette.base: styler.blockBg
+    palette.text: styler.themePrimaryColor
 
     property var    cover
     property real   compassOrientationOffset: 0
