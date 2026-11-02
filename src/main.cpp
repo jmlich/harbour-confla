@@ -4,6 +4,7 @@
 #else
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+#include <QQuickView>
 #endif
 #include <QApplication>
 #include <QtQml>
@@ -53,7 +54,7 @@ int main(int argc, char *argv[])
     QQuickView *engine = SailfishApp::createView();
 #else
     QQmlApplicationEngine *engine = new QQmlApplicationEngine();
-    engine->setNetworkAccessManagerFactory(&namFactory);
+    engine->setNetworkAccessManagerFactory(&namFactory); // FIXME networkAccessManager is needed also for SFOS
 #endif
 
     engine->rootContext()->setContextProperty("IMAGE_CACHE_FOLDER", "file://" +QStandardPaths::writableLocation(QStandardPaths::DataLocation) );
