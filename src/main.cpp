@@ -4,8 +4,8 @@
 #else
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
-#include <QQuickView>
 #endif
+#include <QQuickView>
 #include <QApplication>
 #include <QtQml>
 #include <QDesktopWidget>
