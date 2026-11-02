@@ -1,5 +1,11 @@
-#include <QApplication>
+
+#ifdef MER_EDITION_SAILFISH
+#include <sailfishapp.h>
+#else
 #include <QQmlApplicationEngine>
+#include <QQuickWindow>
+#endif
+#include <QApplication>
 #include <QtQml>
 #include <QDesktopWidget>
 #include "filereader.h"
@@ -43,13 +49,22 @@ int main(int argc, char *argv[])
     qmlRegisterType<FileReader>("cz.mlich", 1, 0, "FileReader");
     qmlRegisterType<Downloader>("cz.mlich", 1, 0, "Downloader");
 
-    QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("IMAGE_CACHE_FOLDER", "file://" +QStandardPaths::writableLocation(QStandardPaths::DataLocation) );
-    engine.setNetworkAccessManagerFactory(&namFactory);
+#ifdef MER_EDITION_SAILFISH
+    QQuickView *engine = SailfishApp::createView();
+#else
+    QQmlApplicationEngine *engine = new QQmlApplicationEngine();
+    engine->setNetworkAccessManagerFactory(&namFactory);
+#endif
 
-    engine.rootContext()->setContextProperty("dpix", app.desktop()->logicalDpiX());
-    engine.rootContext()->setContextProperty("dpiy", app.desktop()->logicalDpiY());
-    engine.load(QUrl("qrc:/qml/main.qml"));
+    engine->rootContext()->setContextProperty("IMAGE_CACHE_FOLDER", "file://" +QStandardPaths::writableLocation(QStandardPaths::DataLocation) );
 
+    engine->rootContext()->setContextProperty("dpix", app.desktop()->logicalDpiX());
+    engine->rootContext()->setContextProperty("dpiy", app.desktop()->logicalDpiY());
+#ifdef MER_EDITION_SAILFISH
+    engine->setSource(QUrl("qrc:/qml/main.qml"));
+    engine->show();
+#else
+    engine->load(QUrl("qrc:/qml/main.qml"));
+#endif
     return app.exec();
 }

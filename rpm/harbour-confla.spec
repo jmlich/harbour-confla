@@ -20,10 +20,11 @@ Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   sailfish-components-pickers-qt5
 Requires:   qt5-qtdeclarative-import-positioning
-Requires:   qt5-qtdeclarative-import-localstorage
+Requires:   qt5-qtdeclarative-import-localstorageplugin
 Requires:   qt5-qtgraphicaleffects
 Requires:   nemo-qml-plugin-notifications-qt5
 Requires:   libkeepalive
+BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Qml)

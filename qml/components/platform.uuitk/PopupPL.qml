@@ -14,10 +14,10 @@ DBusInterface {
 
         console.log("PopupPL Message:", msg); // notification will not apear in `clickable desktop`
 
-        var app_icon = APPLICATION_FILE_DIR + "/../share/icons/hicolor/172x172/apps/harbour-amazfish-ui.png"
+        var app_icon = APPLICATION_FILE_DIR + "/../share/icons/hicolor/172x172/apps/harbour-confla.png"
 
         notificationsIface.typedCall("Notify", [
-            { "type": "s", "value": "harbour-amazfish" },     // app_name
+            { "type": "s", "value": "harbour-confla" },     // app_name
             { "type": "u", "value": _lastNotificationId },    // replaces_id
             { "type": "s", "value": app_icon },               // app_icon
             { "type": "s", "value": msg },                    // summary
