@@ -85,7 +85,7 @@ add_executable(harbour-confla
   ${RESOURCES}
   ${TS_FILES}
 )
-find_package(Qt5 COMPONENTS Gui Widgets Quick Positioning REQUIRED)
+find_package(Qt5 COMPONENTS Gui Quick Positioning REQUIRED)
 
 set(QM_FILES)
 foreach(TS_FILE ${TS_FILES})
@@ -114,9 +114,15 @@ target_compile_definitions(harbour-confla
 
 target_link_libraries(harbour-confla
   PRIVATE 
-  Qt5::Core Qt5::Widgets Qt5::Quick Qt5::Positioning
+  Qt5::Core Qt5::Quick Qt5::Positioning
   ${SAILFISH_LDFLAGS}
 )
+
+# Harbour does not allow libQt5Widgets
+if(NOT FLAVOR STREQUAL "silica")
+    find_package(Qt5 COMPONENTS Widgets REQUIRED)
+    target_link_libraries(harbour-confla PRIVATE Qt5::Widgets)
+endif()
 
 if(FLAVOR STREQUAL "silica")
     target_include_directories(harbour-confla PRIVATE

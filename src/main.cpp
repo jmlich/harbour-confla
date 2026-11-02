@@ -6,16 +6,25 @@
 #include <QQuickWindow>
 #endif
 #include <QQuickView>
+#ifdef MER_EDITION_SAILFISH
+#include <QGuiApplication>
+#else
 #include <QApplication>
+#endif
 #include <QtQml>
-#include <QDesktopWidget>
+#include <QScreen>
 #include "filereader.h"
 #include "networkaccessmanagerfactory.h"
 #include "downloader.h"
 
 int main(int argc, char *argv[])
 {
+#ifdef MER_EDITION_SAILFISH
+    // Harbour does not allow libQt5Widgets
+    QGuiApplication app(argc, argv);
+#else
     QApplication app(argc, argv);
+#endif
 #ifdef UUITK_EDITION
     // a confined click may write only to the directories named after its id
     app.setOrganizationName("com.github.jmlich.harbour-confla");
@@ -60,8 +69,8 @@ int main(int argc, char *argv[])
 
     engine->rootContext()->setContextProperty("IMAGE_CACHE_FOLDER", "file://" +QStandardPaths::writableLocation(QStandardPaths::DataLocation) );
 
-    engine->rootContext()->setContextProperty("dpix", app.desktop()->logicalDpiX());
-    engine->rootContext()->setContextProperty("dpiy", app.desktop()->logicalDpiY());
+    engine->rootContext()->setContextProperty("dpix", app.primaryScreen()->logicalDotsPerInchX());
+    engine->rootContext()->setContextProperty("dpiy", app.primaryScreen()->logicalDotsPerInchY());
 #ifdef MER_EDITION_SAILFISH
     engine->setSource(QUrl("qrc:/qml/main.qml"));
     engine->show();

@@ -18,7 +18,6 @@ License:    GPLv3
 URL:        https://github.com/jmlich/harbour-confla
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
-Requires:   sailfish-components-pickers-qt5
 Requires:   qt5-qtdeclarative-import-positioning
 Requires:   qt5-qtdeclarative-import-localstorageplugin
 Requires:   qt5-qtgraphicaleffects
@@ -30,7 +29,6 @@ BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Sql)
-BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Positioning)
 BuildRequires:  qt5-qttools-linguist
 BuildRequires:  desktop-file-utils
