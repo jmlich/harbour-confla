@@ -52,9 +52,10 @@ int main(int argc, char *argv[])
 
 #ifdef MER_EDITION_SAILFISH
     QQuickView *engine = SailfishApp::createView();
+    engine->engine()->setNetworkAccessManagerFactory(&namFactory);
 #else
     QQmlApplicationEngine *engine = new QQmlApplicationEngine();
-    engine->setNetworkAccessManagerFactory(&namFactory); // FIXME networkAccessManager is needed also for SFOS
+    engine->setNetworkAccessManagerFactory(&namFactory);
 #endif
 
     engine->rootContext()->setContextProperty("IMAGE_CACHE_FOLDER", "file://" +QStandardPaths::writableLocation(QStandardPaths::DataLocation) );
