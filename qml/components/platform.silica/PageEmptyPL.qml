@@ -25,7 +25,7 @@ Page {
 
     default property alias content: itemCont.data
     readonly property bool empty: true
-    property alias         pageMenu: menuLoader.sourceComponent
+    property Component     pageMenu
     property string        title
 
     signal pageStatusActivating
@@ -37,18 +37,19 @@ Page {
         anchors.fill: page
     }
 
-    // A pull down menu works only inside a Silica flickable, so put it into the visible one
-    Loader {
-        id: menuLoader
-        active: sourceComponent && parent !== page
-        parent: {
-            for (var i = 0; i < itemCont.children.length; i++) {
-                var child = itemCont.children[i];
-                if (child.visible && child.pullDownMenu !== undefined) return child;
-            }
-            return page;
+    // A pull down menu works only inside a Silica flickable and stays with the flickable it is created in,
+    // so every flickable gets its own menu
+    Component.onCompleted: {
+        if (!pageMenu) return;
+        for (var i = 0; i < itemCont.children.length; i++) {
+            var child = itemCont.children[i];
+            if ("pullDownMenu" in child) addPageMenu(child);
         }
-        width: parent.width
+    }
+
+    function addPageMenu(flickable) {
+        var menu = pageMenu.createObject(flickable);
+        menu.width = Qt.binding(function() { return flickable.width; });
     }
 
     onStatusChanged: {
