@@ -36,6 +36,7 @@ BuildRequires:  qt5-qttools-linguist
 BuildRequires:  desktop-file-utils
 BuildRequires:  git
 BuildRequires:  cmake
+BuildRequires:  ninja
 
 %description
 Conference schedule application for Sailfish OS
@@ -69,11 +70,11 @@ Links:
         .
 %endif
 
-cmake --build "." %{?_smp_mflags} --verbose
+%cmake_build
 
 %install
 rm -rf %{buildroot}
-DESTDIR=%{buildroot} cmake --install .
+%cmake_install
 
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
