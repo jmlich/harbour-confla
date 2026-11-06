@@ -11,6 +11,7 @@ Item {
 
     property variant conferences;
     property variant data;
+    property variant currentConference; // menu entry of the open conference, data adds the parsed schedule
     property int lastUpdate: 0
     property string status: "idle"
 
@@ -111,6 +112,7 @@ Item {
             cached[key] = conf_data[key]
         }
         data = cached
+        currentConference = conf_data
         updateUIConference(data);
 
         var cache_version = configGet(conf_data['url']+"/version", 'INVALID_version');
@@ -119,8 +121,41 @@ Item {
             console.error("init_conference " + conf_data['version'] + " -> " + cache_version)
 
             download_conference(conf_data);
+        } else {
+            check_schedule(conf_data);
         }
 
+    }
+
+    // ETag, or Last-Modified when the server has no ETag, empty when it has neither
+    function scheduleStamp(http) {
+        var stamp = http.getResponseHeader("ETag");
+        if (!stamp) {
+            stamp = http.getResponseHeader("Last-Modified");
+        }
+        return stamp ? stamp : "";
+    }
+
+    // the menu version changes rarely, ask the server whether schedule.xml has changed
+    function check_schedule(conf_data) {
+        var url = conf_data['url'];
+        console.log("Checking " + url + " ...")
+        var http = new XMLHttpRequest()
+        http.open("HEAD", url, true)
+        http.onreadystatechange = function() {
+            if (http.readyState != 4) {
+                return
+            }
+            if (http.status != 200) {
+                console.log("Cannot check " + url + ": " + http.status)
+                return
+            }
+            var stamp = scheduleStamp(http)
+            if (stamp === "" || stamp !== configGet(url + "/stamp", "")) {
+                download_conference(conf_data);
+            }
+        }
+        http.send()
     }
 
     function xmlToJSON(xml) {
@@ -434,6 +469,7 @@ Item {
                     if (data.version !== undefined) {
                         configSet(conf_data['url']+"/version", data.version)
                     }
+                    configSet(conf_data['url'] + "/stamp", scheduleStamp(http))
 
                     var speakers_url = pretalxSpeakersUrl(conf_data['url'])
                     if (speakers_url !== "") {

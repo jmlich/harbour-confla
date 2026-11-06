@@ -93,6 +93,9 @@ ApplicationWindowPL {
         interval: 600000; // 10 minutes
         onTriggered: {
             dataSource.updateUI();
+            if (dataSource.currentConference !== undefined) {
+                dataSource.check_schedule(dataSource.currentConference);
+            }
         }
     }
 
