@@ -34,6 +34,10 @@ int main(int argc, char *argv[])
     app.setApplicationName("harbour-confla");
 #endif
     app.setApplicationVersion(GIT_VERSION);
+#ifdef flavor_kirigami
+    // Wayland and the geoclue2 location provider find the app by its desktop file
+    app.setDesktopFileName("harbour-confla");
+#endif
     qDebug() << "Starting build" << GIT_VERSION << "Qt" << qVersion();
 
 
@@ -67,7 +71,7 @@ int main(int argc, char *argv[])
     engine->setNetworkAccessManagerFactory(&namFactory);
 #endif
 
-    engine->rootContext()->setContextProperty("IMAGE_CACHE_FOLDER", "file://" +QStandardPaths::writableLocation(QStandardPaths::DataLocation) );
+    engine->rootContext()->setContextProperty("IMAGE_CACHE_FOLDER", "file://" + QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
 
     engine->rootContext()->setContextProperty("dpix", app.primaryScreen()->logicalDotsPerInchX());
     engine->rootContext()->setContextProperty("dpiy", app.primaryScreen()->logicalDotsPerInchY());

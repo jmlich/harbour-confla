@@ -1,6 +1,5 @@
 #include <QFile>
 #include <QUrl>
-#include <QRegExp>
 #include <QDebug>
 #include "filereader.h"
 
@@ -49,10 +48,10 @@ bool FileReader::is_local_file(const QUrl &filename) {
 }
 
 QString FileReader::getBasename(const QString fullname) {
-    QRegExp rx("([^/]+)$");
+    int slash = fullname.lastIndexOf('/');
 
-    if (rx.indexIn(fullname, 0) != -1) {
-        return rx.cap(1);
+    if (slash + 1 < fullname.length()) {
+        return fullname.mid(slash + 1);
     }
 
     return fullname;
