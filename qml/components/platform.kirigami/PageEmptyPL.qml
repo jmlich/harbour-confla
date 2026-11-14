@@ -41,9 +41,7 @@ Kirigami.Page {
     signal pageStatusActive
     signal pageStatusInactive
 
-    actions {
-        contextualActions: page.pageMenu ? page.pageMenu.items : []
-    }
+    actions: page.pageMenu ? page.pageMenu.items : []
 
     Item {
         id: itemCont

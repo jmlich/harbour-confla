@@ -8,7 +8,14 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+# Kirigami uses Qt 6, the other flavors stay on Qt 5
+if(FLAVOR STREQUAL "kirigami")
+    set(QT_MAJOR 6)
+    set(CMAKE_CXX_STANDARD 17)
+else()
+    set(QT_MAJOR 5)
+    set(CMAKE_CXX_STANDARD 11)
+endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -16,7 +23,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(GNUInstallDirs)
 include(FeatureSummary)
 
-find_package(Qt5 COMPONENTS Core Gui Quick Sql DBus LinguistTools REQUIRED)
+find_package(Qt${QT_MAJOR} COMPONENTS Core Gui Quick Sql DBus LinguistTools REQUIRED)
 find_package(Git QUIET REQUIRED)
 
 execute_process(COMMAND
@@ -85,14 +92,14 @@ add_executable(harbour-confla
   ${RESOURCES}
   ${TS_FILES}
 )
-find_package(Qt5 COMPONENTS Gui Quick Positioning REQUIRED)
+find_package(Qt${QT_MAJOR} COMPONENTS Gui Quick Positioning REQUIRED)
 
 set(QM_FILES)
 foreach(TS_FILE ${TS_FILES})
     get_filename_component(QM_NAME ${TS_FILE} NAME_WE)
     set(QM_FILE "${CMAKE_CURRENT_BINARY_DIR}/${QM_NAME}.qm")
     add_custom_command(OUTPUT ${QM_FILE}
-        COMMAND Qt5::lrelease -idbased ${TS_FILE} -qm ${QM_FILE}
+        COMMAND Qt${QT_MAJOR}::lrelease -idbased ${TS_FILE} -qm ${QM_FILE}
         DEPENDS ${TS_FILE})
     list(APPEND QM_FILES ${QM_FILE})
 endforeach()
@@ -114,14 +121,14 @@ target_compile_definitions(harbour-confla
 
 target_link_libraries(harbour-confla
   PRIVATE 
-  Qt5::Core Qt5::Quick Qt5::Positioning
+  Qt${QT_MAJOR}::Core Qt${QT_MAJOR}::Quick Qt${QT_MAJOR}::Positioning
   ${SAILFISH_LDFLAGS}
 )
 
 # Harbour does not allow libQt5Widgets
 if(NOT FLAVOR STREQUAL "silica")
-    find_package(Qt5 COMPONENTS Widgets REQUIRED)
-    target_link_libraries(harbour-confla PRIVATE Qt5::Widgets)
+    find_package(Qt${QT_MAJOR} COMPONENTS Widgets REQUIRED)
+    target_link_libraries(harbour-confla PRIVATE Qt${QT_MAJOR}::Widgets)
 endif()
 
 if(FLAVOR STREQUAL "silica")

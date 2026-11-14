@@ -10,7 +10,7 @@ added from the public pretalx API. Schedules are cached, so the app also works o
 ## Build
 
 Choose the platform with `FLAVOR`: `kirigami`, `uuitk` (Ubuntu Touch), `silica` (Sailfish OS) or
-`qtcontrols`.
+`qtcontrols`. The `kirigami` flavor builds with Qt 6 and Kirigami 6; the other flavors build with Qt 5.
 
 ```
 mkdir build && cd build
